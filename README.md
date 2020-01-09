@@ -1,3 +1,4 @@
-# ELS - Enterprise Linux/EuroLinux Sources - eclipse-dtp 
+# ELS - Enterprise Linux/EuroLinux Sources - eclipse-dtp
+ 
 ## Usage:
-  Checkout branch or tag.
+  Checkout branch or tag. Use `make sources` to recreate  SOURCE0 archive.
