@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ConstraintItemProvider.java,v 1.3 2007/05/31 00:29:17 dpchou Exp $
+ * $Id: ConstraintItemProvider.java,v 1.4 2010/02/16 06:50:59 hkolwalka Exp $
  */
 package org.eclipse.datatools.modelbase.sql.constraints.provider;
 
@@ -178,8 +178,8 @@ public class ConstraintItemProvider
 	}
 
 	/**
-	 * This adds to the collection of {@link org.eclipse.emf.edit.command.CommandParameter}s
-	 * describing all of the children that can be created under this object.
+	 * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s describing the children
+	 * that can be created under this object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated

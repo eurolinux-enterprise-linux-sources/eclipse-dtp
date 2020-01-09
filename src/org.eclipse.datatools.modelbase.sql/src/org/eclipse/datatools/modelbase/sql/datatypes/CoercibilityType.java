@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: CoercibilityType.java,v 1.3 2006/09/07 00:19:48 dpchou Exp $
+ * $Id: CoercibilityType.java,v 1.4 2010/02/16 06:50:52 hkolwalka Exp $
  */
 package org.eclipse.datatools.modelbase.sql.datatypes;
 
@@ -193,7 +193,7 @@ public final class CoercibilityType extends AbstractEnumerator {
 			case COERCIBILE: return COERCIBILE_LITERAL;
 			case NO_COLLATION: return NO_COLLATION_LITERAL;
 		}
-		return null;	
+		return null;
 	}
 
 	/**

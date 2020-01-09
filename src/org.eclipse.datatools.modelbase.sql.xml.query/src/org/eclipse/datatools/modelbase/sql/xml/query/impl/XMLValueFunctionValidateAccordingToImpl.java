@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: XMLValueFunctionValidateAccordingToImpl.java,v 1.5 2008/07/07 19:55:14 bpayton Exp $
+ * $Id: XMLValueFunctionValidateAccordingToImpl.java,v 1.6 2010/02/25 02:13:16 bpayton Exp $
  */
 package org.eclipse.datatools.modelbase.sql.xml.query.impl;
 
@@ -71,7 +71,7 @@ public class XMLValueFunctionValidateAccordingToImpl extends SQLQueryObjectImpl 
      * @generated
      */
     public XMLValueFunctionValidate getValueFunctionValidate() {
-        if (eContainerFeatureID != SQLXMLQueryModelPackage.XML_VALUE_FUNCTION_VALIDATE_ACCORDING_TO__VALUE_FUNCTION_VALIDATE) return null;
+        if (eContainerFeatureID() != SQLXMLQueryModelPackage.XML_VALUE_FUNCTION_VALIDATE_ACCORDING_TO__VALUE_FUNCTION_VALIDATE) return null;
         return (XMLValueFunctionValidate)eContainer();
     }
 
@@ -91,7 +91,7 @@ public class XMLValueFunctionValidateAccordingToImpl extends SQLQueryObjectImpl 
      * @generated
      */
     public void setValueFunctionValidate(XMLValueFunctionValidate newValueFunctionValidate) {
-        if (newValueFunctionValidate != eInternalContainer() || (eContainerFeatureID != SQLXMLQueryModelPackage.XML_VALUE_FUNCTION_VALIDATE_ACCORDING_TO__VALUE_FUNCTION_VALIDATE && newValueFunctionValidate != null)) {
+        if (newValueFunctionValidate != eInternalContainer() || (eContainerFeatureID() != SQLXMLQueryModelPackage.XML_VALUE_FUNCTION_VALIDATE_ACCORDING_TO__VALUE_FUNCTION_VALIDATE && newValueFunctionValidate != null)) {
             if (EcoreUtil.isAncestor(this, newValueFunctionValidate))
                 throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
             NotificationChain msgs = null;
@@ -189,7 +189,7 @@ public class XMLValueFunctionValidateAccordingToImpl extends SQLQueryObjectImpl 
      * @generated
      */
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-        switch (eContainerFeatureID) {
+        switch (eContainerFeatureID()) {
             case SQLXMLQueryModelPackage.XML_VALUE_FUNCTION_VALIDATE_ACCORDING_TO__VALUE_FUNCTION_VALIDATE:
                 return eInternalContainer().eInverseRemove(this, SQLXMLQueryModelPackage.XML_VALUE_FUNCTION_VALIDATE__VALIDATE_ACCORDING_TO, XMLValueFunctionValidate.class, msgs);
         }

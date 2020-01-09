@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ReferenceType.java,v 1.3 2006/09/07 00:19:49 dpchou Exp $
+ * $Id: ReferenceType.java,v 1.4 2010/02/16 06:50:52 hkolwalka Exp $
  */
 package org.eclipse.datatools.modelbase.sql.tables;
 
@@ -162,7 +162,7 @@ public final class ReferenceType extends AbstractEnumerator {
 			case USER_GENERATED: return USER_GENERATED_LITERAL;
 			case DERIVED_SELF_REF: return DERIVED_SELF_REF_LITERAL;
 		}
-		return null;	
+		return null;
 	}
 
 	/**

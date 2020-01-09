@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2008 IBM Corporation and others.
+ * Copyright (c) 2001, 2010 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -22,6 +22,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IExtension;
+import org.eclipse.core.runtime.IExtensionPoint;
+import org.eclipse.core.runtime.IExtensionRegistry;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.datatools.connectivity.sqm.core.definition.DatabaseDefinition;
 import org.eclipse.datatools.connectivity.sqm.core.rte.ICatalogObject;
 import org.eclipse.datatools.connectivity.sqm.internal.core.RDBCorePlugin;
@@ -33,9 +39,11 @@ import org.eclipse.datatools.modelbase.sql.datatypes.PredefinedDataType;
 import org.eclipse.datatools.modelbase.sql.datatypes.UserDefinedType;
 import org.eclipse.datatools.modelbase.sql.schema.Database;
 import org.eclipse.datatools.modelbase.sql.schema.Schema;
+import org.eclipse.datatools.modelbase.sql.schema.helper.ISQLObjectNameHelper;
 import org.eclipse.datatools.modelbase.sql.tables.BaseTable;
 import org.eclipse.datatools.modelbase.sql.tables.Column;
 import org.eclipse.datatools.modelbase.sql.tables.Table;
+import org.eclipse.datatools.modelbase.sql.tables.ViewTable;
 import org.eclipse.datatools.sqltools.data.internal.core.DataCorePlugin;
 import org.eclipse.datatools.sqltools.data.internal.core.common.IColumnDataAccessor;
 import org.eclipse.datatools.sqltools.data.internal.core.common.Output;
@@ -55,7 +63,7 @@ import org.eclipse.emf.common.util.EList;
  * 
  * @author groux
  */
-public class TableDataImpl implements ITableData {
+public class TableDataImpl implements ITableData2 {
 
     protected Table sqlTable;
     protected Connection con;  
@@ -85,6 +93,10 @@ public class TableDataImpl implements ITableData {
     /** The actual columns in the result */
     protected List resultColumns;
     
+    private static final String EXTERNAL_SQL_OBJECT_NAME_HELPER = "org.eclipse.datatools.modelbase.sql.sqlObjectNameHelper"; //$NON-NLS-1$
+    private static final String EXTERNAL_SQL_OBJECT_NAME_HELPER_DBTYPE = "databaseType"; //$NON-NLS-1$
+    private static final String EXTERNAL_SQL_OBJECT_NAME_HELPER_CLASS = "class"; //$NON-NLS-1$
+    
     
 
     public TableDataImpl(Table sqlTable) throws SQLException, IOException, Exception
@@ -96,7 +108,25 @@ public class TableDataImpl implements ITableData {
         if (sqlTable instanceof BaseTable) {
             findKey((BaseTable) sqlTable);
             readonly = false;
-        } else {
+        }
+        // If the target table is a view table, determine whether it can be edited.
+        else if (sqlTable instanceof ViewTable)
+        {	
+            readonly = true;
+            try
+            {
+                if (sqlTable.isUpdatable())
+                {
+                    findViewKey((ViewTable) sqlTable);
+                    readonly = false;
+                }
+            }
+            catch(UnsupportedOperationException uoe)
+            {
+                readonly = true;
+            }
+        } 
+        else {
             readonly = true;
         }
         resultColumns = new ArrayList();
@@ -150,6 +180,22 @@ public class TableDataImpl implements ITableData {
         }
     }
     
+    /**
+     * Finds a "view key" for the given view table. The view key is all the columns of the table.
+     * The view key is stored in the key var as an array of column indexes.
+     * 
+     * @param viewTable the view table for which the key is needed.
+     */
+    protected void findViewKey(ViewTable viewTable)
+    {
+        EList cols = viewTable.getColumns();
+        key = new int[cols.size()];
+        for (int i=0; i<cols.size(); ++i)
+        {
+            key[i] = i;
+        } 
+    }
+
     /**
      * Constructs TableDataImpl when user opt to filter the table results being returned     
      */
@@ -217,7 +263,8 @@ public class TableDataImpl implements ITableData {
     
     protected String computeSelectStatement()
     {
-        StringBuffer sb = new StringBuffer("SELECT"); //$NON-NLS-1$
+    	Database database = null;
+    	StringBuffer sb = new StringBuffer("SELECT"); //$NON-NLS-1$
         for (int i=0; i<sqlTable.getColumns().size(); ++i) {
         	if (i==0)
                 sb.append(" "); //$NON-NLS-1$
@@ -226,8 +273,34 @@ public class TableDataImpl implements ITableData {
             sb.append( colDataAccessor[i].getSelectExpr() );
         }
         sb.append(" FROM "); //$NON-NLS-1$
-        sb.append(getQualifiedTableName());
+        // Get the qualified form of the table name from the name handler, if one
+        // is registered.  Otherwise qualify it locally.
+        String tableName = null;
+        database = getDatabase(sqlTable.getSchema());
+        String quote = "\""; //$NON-NLS-1$
+        try {
+        	quote = con.getMetaData().getIdentifierQuoteString();
+        }
+        catch (Exception ex)  {
+            // ignore
+        }        
+        ISQLObjectNameHelper nameProvider = getSQLObjectNameHelper(database);
+        if (nameProvider != null) {
+            nameProvider.setIdentifierQuoteString(quote);
+            tableName = nameProvider.getQualifiedNameInSQLFormat(sqlTable);
+        }
+        if (tableName == null) {
+            tableName = getQualifiedTableName();
+        }
+        sb.append(tableName);        
+        
         return sb.toString();
+    }
+    
+    private Database getDatabase (Schema schema)
+    {
+        return schema.getCatalog() == 
+        	null ? schema.getDatabase() : schema.getCatalog().getDatabase();
     }
     
     protected void findKey(BaseTable baseTable)
@@ -466,6 +539,55 @@ public class TableDataImpl implements ITableData {
         return readonly;
     }
     
+    /**
+     * Gets a SQL Object name helper for the given database, if any.
+     * 
+     * @param database the current database
+     * @return the name helper, or null if none found for the current database
+     */
+    private ISQLObjectNameHelper getSQLObjectNameHelper(Database database) {
+        ISQLObjectNameHelper nameHelper = null;
+        
+        if (database != null) {
+            /* Get the current database type. */
+            String currentDBVendor = database.getVendor();
+            
+            /* Get an array of extenders of the SQL Object Name Handler extension point. */
+            IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
+            IExtensionPoint nameHandlerExtensionPoint = 
+                extensionRegistry.getExtensionPoint(TableDataImpl.EXTERNAL_SQL_OBJECT_NAME_HELPER);
+            IExtension [] nameHandlerExtensions = nameHandlerExtensionPoint.getExtensions();
+
+            /* Scan the array to get an extender registered for the current database type, if any. 
+             * Stop on the first one found. */
+            int i = 0;
+            while (i < nameHandlerExtensions.length && nameHelper == null) {
+                IExtension ext = nameHandlerExtensions[i];
+                IConfigurationElement [] configElements = ext.getConfigurationElements();
+                int j = 0;
+                while (j < configElements.length && nameHelper == null) {
+                    String extVendor = configElements[j].getAttribute(TableDataImpl.EXTERNAL_SQL_OBJECT_NAME_HELPER_DBTYPE);
+                    if (currentDBVendor.equalsIgnoreCase(extVendor)) {
+                        try {
+                            Object executableExtension = 
+                                configElements[j].createExecutableExtension(TableDataImpl.EXTERNAL_SQL_OBJECT_NAME_HELPER_CLASS);
+                            if (executableExtension instanceof ISQLObjectNameHelper) {
+                                nameHelper = (ISQLObjectNameHelper) executableExtension;
+                            }
+                        }
+                        catch(CoreException ex) {
+                            // ignore error
+                        }
+                    }
+                    j++;
+                }
+                i++;
+            }
+        }
+
+        return nameHelper;
+    }
+    
     public String getQualifiedTableName()
     {
         //return DataCorePlugin.getQualifiedTableName(sqlTable);
@@ -493,5 +615,9 @@ public class TableDataImpl implements ITableData {
     public Table getSQLTable()
     {
     	return sqlTable;
+    }
+    
+    public List getResultColumns() {
+    	return resultColumns;
     }
 }

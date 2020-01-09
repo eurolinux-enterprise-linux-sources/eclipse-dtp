@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: StructuredUserDefinedTypeItemProvider.java,v 1.3 2007/05/31 00:29:17 dpchou Exp $
+ * $Id: StructuredUserDefinedTypeItemProvider.java,v 1.4 2010/02/16 06:51:00 hkolwalka Exp $
  */
 package org.eclipse.datatools.modelbase.sql.datatypes.provider;
 
@@ -235,8 +235,8 @@ public class StructuredUserDefinedTypeItemProvider
 	}
 
 	/**
-	 * This adds to the collection of {@link org.eclipse.emf.edit.command.CommandParameter}s
-	 * describing all of the children that can be created under this object.
+	 * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s describing the children
+	 * that can be created under this object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -253,16 +253,6 @@ public class StructuredUserDefinedTypeItemProvider
 			(createChildParameter
 				(SQLDataTypesPackage.Literals.STRUCTURED_USER_DEFINED_TYPE__METHODS,
 				 SQLRoutinesFactory.eINSTANCE.createMethod()));
-	}
-
-	/**
-	 * Return the resource locator for this item provider's resources.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ResourceLocator getResourceLocator() {
-		return SqlmodelEditPlugin.INSTANCE;
 	}
 
 }

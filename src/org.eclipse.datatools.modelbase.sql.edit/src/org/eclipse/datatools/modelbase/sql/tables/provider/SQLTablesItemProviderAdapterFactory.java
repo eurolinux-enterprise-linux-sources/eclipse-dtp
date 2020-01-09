@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: SQLTablesItemProviderAdapterFactory.java,v 1.2 2005/12/22 22:37:40 bpayton Exp $
+ * $Id: SQLTablesItemProviderAdapterFactory.java,v 1.3 2010/02/16 06:51:00 hkolwalka Exp $
  */
 package org.eclipse.datatools.modelbase.sql.tables.provider;
 
@@ -69,7 +69,7 @@ public class SQLTablesItemProviderAdapterFactory extends SQLTablesAdapterFactory
 		supportedTypes.add(IStructuredItemContentProvider.class);
 		supportedTypes.add(ITreeItemContentProvider.class);
 		supportedTypes.add(IItemLabelProvider.class);
-		supportedTypes.add(IItemPropertySource.class);		
+		supportedTypes.add(IItemPropertySource.class);
 	}
 
 	/**

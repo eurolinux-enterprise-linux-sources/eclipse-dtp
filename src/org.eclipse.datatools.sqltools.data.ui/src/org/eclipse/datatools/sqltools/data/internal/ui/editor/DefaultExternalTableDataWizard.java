@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2004 IBM Corporation and others.
+ * Copyright (c) 2001, 2010 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,6 +19,7 @@ import org.eclipse.datatools.modelbase.sql.tables.Column;
 import org.eclipse.datatools.sqltools.data.internal.core.DataCorePlugin;
 import org.eclipse.datatools.sqltools.data.internal.core.editor.IRowData;
 import org.eclipse.datatools.sqltools.data.internal.core.editor.ITableData;
+import org.eclipse.datatools.sqltools.data.internal.core.editor.ITableData2;
 import org.eclipse.datatools.sqltools.data.internal.core.editor.RowDataImpl;
 import org.eclipse.datatools.sqltools.data.internal.ui.DataUIPlugin;
 import org.eclipse.jface.dialogs.ErrorDialog;
@@ -39,7 +40,7 @@ public class DefaultExternalTableDataWizard extends Wizard implements IExternalT
     protected DefaultExternalTableDataWizardPage defaultPage;
 	
     /** The reference to the TableDataEditor */
-    protected TableDataEditor editor;
+    protected ITableDataEditor editor;
 
     /**
      */
@@ -51,7 +52,7 @@ public class DefaultExternalTableDataWizard extends Wizard implements IExternalT
      * initializes the wizard and opens the wizard dialog 
      * @see org.eclipse.datatools.sqltools.data.internal.ui.editor.IExternalTableDataEditor#externalEdit(org.eclipse.datatools.sqltools.data.internal.ui.editor.TableDataEditor)
      */
-    public void externalEdit(TableDataEditor editor) {
+    public void externalEdit(ITableDataEditor editor) {
         init(editor);   
         refreshValueFromDatabase();
         WizardDialog dialog = new WizardDialog(editor.getEditorSite().getShell(), this);
@@ -100,7 +101,7 @@ public class DefaultExternalTableDataWizard extends Wizard implements IExternalT
             return false;
         }
         
-        editor.tableViewer.refresh((RowDataImpl)editor.getRow());
+        editor.getTableViewer().refresh((RowDataImpl)editor.getRow());
         editor.getCursor().redraw();
 
     	return true;
@@ -110,7 +111,7 @@ public class DefaultExternalTableDataWizard extends Wizard implements IExternalT
      * initializes the wizard with the TableDataEditor
      * @param editor
      */
-    protected void init(TableDataEditor editor){
+    protected void init(ITableDataEditor editor){
 	    // input validation
         if (editor == null) {
             throw new IllegalArgumentException(Messages.getString("DefaultExternalTableDataEditorWizard.InitError"));  //$NON-NLS-1$
@@ -118,7 +119,13 @@ public class DefaultExternalTableDataWizard extends Wizard implements IExternalT
         this.editor = editor;
         int columnIndex = editor.getCursor().getColumn();
         try{
-            String type = ((Column)editor.getSqlTable().getColumns().get(columnIndex)).getDataType().getName();
+            String type = null;
+            if (editor.getTableData() instanceof ITableData2) {
+        	type = ((Column)((ITableData2)editor.getTableData()).getResultColumns().get(columnIndex)).getDataType().getName();
+            }
+            else {
+        	type = ((Column)editor.getSqlTable().getColumns().get(columnIndex)).getDataType().getName();
+            }
             setWindowTitle(Messages.getString("DefaultExternalTableDataEditorWizard.Title", new Object[]{type}));  //$NON-NLS-1$
         } catch (Exception e){
             setWindowTitle(Messages.getString("DefaultExternalTableDataEditorWizard.DefaultTitle"));  //$NON-NLS-1$

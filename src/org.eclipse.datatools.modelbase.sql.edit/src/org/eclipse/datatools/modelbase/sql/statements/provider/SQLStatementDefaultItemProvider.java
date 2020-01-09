@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: SQLStatementDefaultItemProvider.java,v 1.3 2007/05/31 00:29:18 dpchou Exp $
+ * $Id: SQLStatementDefaultItemProvider.java,v 1.4 2010/02/16 06:51:00 hkolwalka Exp $
  */
 package org.eclipse.datatools.modelbase.sql.statements.provider;
 
@@ -129,8 +129,8 @@ public class SQLStatementDefaultItemProvider
 	}
 
 	/**
-	 * This adds to the collection of {@link org.eclipse.emf.edit.command.CommandParameter}s
-	 * describing all of the children that can be created under this object.
+	 * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s describing the children
+	 * that can be created under this object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated

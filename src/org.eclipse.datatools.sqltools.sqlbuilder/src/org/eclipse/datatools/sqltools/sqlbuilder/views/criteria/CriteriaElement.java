@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright © 2000, 2007 IBM Corporation and others.
+ * Copyright © 2000, 2010 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which is available at
@@ -378,7 +378,7 @@ public class CriteriaElement {
      * Return the "column" from the grid
      * This corresponds to the left hand side of the predicate
      */
-    protected QueryValueExpression getColumn() {
+    public QueryValueExpression getColumn() {
         return searchConHelper.getLeftFromPredicate(searchPred);
     }
 
@@ -386,14 +386,14 @@ public class CriteriaElement {
      * Return the "value" from the grid
      * This corresponds to the right hand side of the predicate
      */
-    protected String getValue() {
+    public String getValue() {
         return searchConHelper.getRightFromPredicate(searchPred);
     }
 
     /**
      * Return the comparison operator
      */
-    protected String getOperator() {
+    public String getOperator() {
         if (searchPred != null) {
             return searchConHelper.getPredicateOperator(searchPred);
         }
@@ -406,7 +406,7 @@ public class CriteriaElement {
      * get the group operator. Because it is a binary tree, traverse the
      * left branch to get the operator value
      */
-    protected String getAndOr() {
+    public String getAndOr() {
         String opValue = ""; // Default the operator value to blank
 
         if (searchPred.getCombinedLeft() != null) {

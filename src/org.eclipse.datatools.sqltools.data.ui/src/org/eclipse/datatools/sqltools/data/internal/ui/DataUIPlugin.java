@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2004 IBM Corporation and others.
+ * Copyright (c) 2001, 2010 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -25,11 +25,14 @@ import java.util.List;
 
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.IExtensionRegistry;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.datatools.connectivity.sqm.core.containment.ContainmentService;
@@ -41,15 +44,13 @@ import org.eclipse.datatools.modelbase.sql.datatypes.DataLinkDataType;
 import org.eclipse.datatools.modelbase.sql.datatypes.DataType;
 import org.eclipse.datatools.modelbase.sql.schema.Database;
 import org.eclipse.datatools.modelbase.sql.tables.Column;
+import org.eclipse.datatools.sqltools.data.internal.core.editor.ITableData2;
 import org.eclipse.datatools.sqltools.data.internal.ui.editor.IExternalTableDataEditor;
-import org.eclipse.datatools.sqltools.data.internal.ui.editor.TableDataEditor;
+import org.eclipse.datatools.sqltools.data.internal.ui.editor.ITableDataEditor;
 import org.eclipse.datatools.sqltools.data.internal.ui.editor.TableDataEditorActionBarContributor;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.FileLocator;
 
 import com.ibm.icu.util.StringTokenizer;
 
@@ -331,7 +332,7 @@ public class DataUIPlugin extends AbstractUIPlugin
      * @param columnIndex the index of the sql table column 
      * @return the best fitting IExternalTableDataEditor or null if none matches
      */
-    public IExternalTableDataEditor newExternalTableDataCellEditor(TableDataEditor editor, int columnIndex){
+    public IExternalTableDataEditor newExternalTableDataCellEditor(ITableDataEditor editor, int columnIndex){
         // input validation
         if ( (editor==null) || (editor.getSqlTable()==null) || 
              (editor.getSqlTable().getColumns() == null)){
@@ -340,7 +341,21 @@ public class DataUIPlugin extends AbstractUIPlugin
         if (columnIndex > editor.getSqlTable().getColumns().size()){
             return null;
         }
-        Column sqlCol = (Column)editor.getSqlTable().getColumns().get(columnIndex);
+
+        if (editor.getTableData() instanceof ITableData2) {
+            if (((ITableData2)editor.getTableData()).getResultColumns() == null || (columnIndex > ((ITableData2)editor.getTableData()).getResultColumns().size())) {
+        	return null;
+            }
+        }
+
+        Column sqlCol = null;
+        if (editor.getTableData() instanceof ITableData2) {
+            sqlCol = (Column)((ITableData2)editor.getTableData()).getResultColumns().get(columnIndex);
+        }
+        else {
+            sqlCol = (Column)editor.getSqlTable().getColumns().get(columnIndex);
+        }
+        
         IExternalTableDataEditor externalEditor = null;
         
         try {

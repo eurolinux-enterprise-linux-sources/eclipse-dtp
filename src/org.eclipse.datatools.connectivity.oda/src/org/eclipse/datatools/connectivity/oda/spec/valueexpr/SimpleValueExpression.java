@@ -78,8 +78,10 @@ public class SimpleValueExpression extends AtomicValueExpression
     private static Integer getValueOdaDataType( Object exprValue )
     {
         // derive the ODA data type from the type of object value
-        int odaDataType = DataTypeMapping.getOdaDataTypeCodeOfObject( exprValue );
-        return ( odaDataType == Types.NULL ) ? null : Integer.valueOf( odaDataType );
+        int odaDataTypeCode = DataTypeMapping.getOdaDataTypeCodeOfObject( exprValue );
+        return ( odaDataTypeCode == Types.NULL ) ? 
+                UNKNOWN_ODA_DATA_TYPE : 
+                Integer.valueOf( odaDataTypeCode );
     }
 
     /* (non-Javadoc)
@@ -89,7 +91,7 @@ public class SimpleValueExpression extends AtomicValueExpression
     public String toString()
     {
         StringBuffer buffer = new StringBuffer( getClass().getSimpleName() + SPACE );
-        buffer.append( "value: " + getValue() == null ? SPACE : getValue().getClass().getSimpleName() ); //$NON-NLS-1$
+        buffer.append( "value: " + (getValue() == null ? SPACE : getValue().getClass().getSimpleName()) ); //$NON-NLS-1$
         buffer.append( SPACE + getName() );
         return buffer.toString();
     }

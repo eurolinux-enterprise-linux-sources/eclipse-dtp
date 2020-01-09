@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2004-2005 Sybase, Inc.
+ * Copyright (c) 2004, 2010 Sybase, Inc. and others
  * 
  * All rights reserved. This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License v1.0 which
@@ -27,6 +27,7 @@ import org.eclipse.jface.dialogs.IInputValidator;
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.jface.window.Window;
 import org.eclipse.ltk.core.refactoring.CheckConditionsOperation;
 import org.eclipse.ltk.core.refactoring.PerformRefactoringOperation;
@@ -40,9 +41,38 @@ import org.eclipse.ui.IActionDelegate;
  */
 public class RenameAction extends Action implements IActionDelegate {
 
+	private final class NameValidator implements IInputValidator {
+		
+		private String initialName = null;
+		
+		public NameValidator(String init) {
+			this.initialName = init;
+		}
+		
+		public String isValid(String newText) {
+			if (newText == null || newText.trim().length() == 0) {
+				return ConnectivityUIPlugin.getDefault().getResourceString(
+						"rename.dialog.errmsg.invalid"); //$NON-NLS-1$
+			}
+			else if (this.initialName.compareTo(newText) != 0 && nameExisting(newText)) {
+				return ConnectivityUIPlugin.getDefault().getResourceString(
+						"rename.dialog.errmsg.existing"); //$NON-NLS-1$                    
+			}
+			else if (newText.trim().length() < newText.length() ) {
+				return ConnectivityUIPlugin.getDefault().getResourceString(
+						"rename.dialog.errmsg.NoSpacesInName"); //$NON-NLS-1$
+			}
+			else {
+				return null;
+			}
+		}
+	}
+
 	private Shell mParentShell;
 
 	private IConnectionProfile mProfile;
+
+    protected static StructuredViewer viewer;
 
 	/**
 	 * 
@@ -55,26 +85,7 @@ public class RenameAction extends Action implements IActionDelegate {
 	 * @see org.eclipse.jface.action.Action#run()
 	 */
 	public void run() {
-		IInputValidator inputValidator = new IInputValidator() {
-
-			public String isValid(String newText) {
-				if (newText == null || newText.trim().length() == 0) {
-					return ConnectivityUIPlugin.getDefault().getResourceString(
-							"rename.dialog.errmsg.invalid"); //$NON-NLS-1$
-				}
-				else if (nameExisting(newText)) {
-					return ConnectivityUIPlugin.getDefault().getResourceString(
-							"rename.dialog.errmsg.existing"); //$NON-NLS-1$                    
-				}
-				else if (newText.trim().length() < newText.length() ) {
-					return ConnectivityUIPlugin.getDefault().getResourceString(
-							"rename.dialog.errmsg.NoSpacesInName"); //$NON-NLS-1$
-				}
-				else {
-					return null;
-				}
-			}
-		};
+		IInputValidator inputValidator = new NameValidator(mProfile.getName());
 		InputDialog d = new InputDialog(
 				mParentShell,
 				ConnectivityUIPlugin.getDefault().getResourceString(
@@ -86,6 +97,9 @@ public class RenameAction extends Action implements IActionDelegate {
 
 		try {
 			refactor(mProfile, d.getValue());
+	        if (RenameAction.viewer != null){
+	            viewer.refresh(mProfile);
+	        }
 //			ProfileManager.getInstance().modifyProfile(mProfile, d.getValue(),
 //					null);
 //		} catch (ConnectionProfileException e) {
@@ -99,6 +113,10 @@ public class RenameAction extends Action implements IActionDelegate {
 		}
 	}
 	
+    public void setViewer(StructuredViewer viewer) {
+	    RenameAction.viewer = viewer;
+	}   
+
 	private void refactor (IConnectionProfile profile, String newName) throws CoreException {
     	//  Refactor for rename
     	PerformRefactoringOperation refOperation = new PerformRefactoringOperation(

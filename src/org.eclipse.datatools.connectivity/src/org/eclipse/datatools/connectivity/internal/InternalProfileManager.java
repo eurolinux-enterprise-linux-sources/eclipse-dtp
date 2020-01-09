@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2004-2010 Sybase, Inc. and others.
+ * Copyright (c) 2004, 2010 Sybase, Inc. and others.
  * 
  * All rights reserved. This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License v1.0 which
@@ -582,6 +582,10 @@ public class InternalProfileManager {
         IStatus status = profile.disconnect();
         if (status == Status.CANCEL_STATUS)
             return false;
+        
+        // dispose the disconnected transient profile instance to release all its references immediately
+        if ( profile instanceof ConnectionProfile )
+            ((ConnectionProfile)profile).dispose();
 
         return mTransientProfiles.remove( profile );
 	}
@@ -1478,7 +1482,7 @@ public class InternalProfileManager {
 					// jarList is not required, so it can be null, which isn't going to match any jarList coming back from a DriverInstance
 					if ((jarList == null) || (driverInstance.getJarList().equals(jarList))) {
 						DriverValidator validator = new DriverValidator(driverInstance);
-						if (validator.isValid()) {
+						if (validator.isValid(false)) {
 							if (driverInstance.getName().equals(inName)) {
 								return driverInstance;
 							}

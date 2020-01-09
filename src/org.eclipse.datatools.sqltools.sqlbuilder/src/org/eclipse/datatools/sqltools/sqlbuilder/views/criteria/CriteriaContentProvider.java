@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright © 2000, 2007 IBM Corporation and others.
+ * Copyright © 2000, 2010 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which is available at
@@ -25,7 +25,7 @@ import org.eclipse.datatools.modelbase.sql.query.helper.StatementHelper;
 import org.eclipse.datatools.sqltools.sqlbuilder.model.SQLDomainModel;
 import org.eclipse.datatools.sqltools.sqlbuilder.views.GridContentProvider;
 
-class CriteriaContentProvider extends GridContentProvider {
+public class CriteriaContentProvider extends GridContentProvider {
 
     QuerySearchCondition searchCon;
     boolean isHaving = false;

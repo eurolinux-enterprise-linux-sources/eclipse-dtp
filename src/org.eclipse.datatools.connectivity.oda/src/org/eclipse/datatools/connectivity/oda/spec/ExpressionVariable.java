@@ -1,6 +1,6 @@
 /*
  *************************************************************************
- * Copyright (c) 2009 Actuate Corporation.
+ * Copyright (c) 2009, 2010 Actuate Corporation.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,15 +16,15 @@ package org.eclipse.datatools.connectivity.oda.spec;
 
 import org.eclipse.datatools.connectivity.oda.spec.result.ColumnIdentifier;
 import org.eclipse.datatools.connectivity.oda.spec.valueexpr.ColumnValueExpression;
+import org.eclipse.datatools.connectivity.oda.spec.valueexpr.FunctionValueExpression;
 import org.eclipse.datatools.connectivity.oda.spec.valueexpr.SimpleValueExpression;
 
 /**
- * <strong>EXPERIMENTAL</strong>.
  * Represents the variable of an expression defined in an ODA query specification.
  * <br>It is the responsibility of an ODA driver to resolve a variable,
  * when evaluating it with an expression.
  * This may be extended to represent complex types of variables.
- * @since 3.2 (DTP 1.7)
+ * @since 3.3 (DTP 1.8)
  */
 public class ExpressionVariable
 {
@@ -39,6 +39,7 @@ public class ExpressionVariable
     }
 
     public static final String ALIAS_SEPARATOR = "_"; //$NON-NLS-1$
+    private static final String FUNCTION_ALIAS_PREFIX = "F_"; //$NON-NLS-1$
        
     private String m_alias;
     private ValueExpression m_valueExpr;
@@ -125,7 +126,14 @@ public class ExpressionVariable
      */
     public String getAlias()
     {
-        return ( m_alias != null ) ? m_alias : getIdentifier();
+        if( m_alias != null ) 
+            return m_alias;
+        
+        // a function name is normally a keyword, which should not be used as an alias by default
+        if( m_valueExpr instanceof FunctionValueExpression )
+            return FUNCTION_ALIAS_PREFIX + m_valueExpr.getName();
+        
+        return getIdentifier();
     }
 
     /**

@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: CheckType.java,v 1.3 2006/09/07 00:19:49 dpchou Exp $
+ * $Id: CheckType.java,v 1.4 2010/02/16 06:50:52 hkolwalka Exp $
  */
 package org.eclipse.datatools.modelbase.sql.tables;
 
@@ -166,7 +166,7 @@ public final class CheckType extends AbstractEnumerator {
 			case LOCAL: return LOCAL_LITERAL;
 			case NONE: return NONE_LITERAL;
 		}
-		return null;	
+		return null;
 	}
 
 	/**

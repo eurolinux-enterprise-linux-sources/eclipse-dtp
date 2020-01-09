@@ -29,6 +29,7 @@ import org.eclipse.datatools.modelbase.sql.datatypes.DataType;
 import org.eclipse.datatools.modelbase.sql.datatypes.DateDataType;
 import org.eclipse.datatools.modelbase.sql.datatypes.DistinctUserDefinedType;
 import org.eclipse.datatools.modelbase.sql.datatypes.Domain;
+import org.eclipse.datatools.modelbase.sql.datatypes.ElementType;
 import org.eclipse.datatools.modelbase.sql.datatypes.ExactNumericDataType;
 import org.eclipse.datatools.modelbase.sql.datatypes.Field;
 import org.eclipse.datatools.modelbase.sql.datatypes.FixedPrecisionDataType;
@@ -299,6 +300,13 @@ public class SQLDataTypesPackageImpl extends EPackageImpl implements SQLDataType
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass elementTypeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum coercibilityTypeEEnum = null;
 
 	/**
@@ -526,7 +534,7 @@ public class SQLDataTypesPackageImpl extends EPackageImpl implements SQLDataType
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getCollectionDataType_Element() {
+	public EReference getCollectionDataType_ElementType() {
 		return (EReference)collectionDataTypeEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -769,8 +777,17 @@ public class SQLDataTypesPackageImpl extends EPackageImpl implements SQLDataType
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getCharacterSet_Schema() {
+	public EReference getCharacterSet_CharacterStringDataType() {
 		return (EReference)characterSetEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getCharacterSet_Schema() {
+		return (EReference)characterSetEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -1192,6 +1209,24 @@ public class SQLDataTypesPackageImpl extends EPackageImpl implements SQLDataType
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getElementType() {
+		return elementTypeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getElementType_CollectionDataType() {
+		return (EReference)elementTypeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getCoercibilityType() {
 		return coercibilityTypeEEnum;
 	}
@@ -1315,7 +1350,7 @@ public class SQLDataTypesPackageImpl extends EPackageImpl implements SQLDataType
 		createEAttribute(predefinedDataTypeEClass, PREDEFINED_DATA_TYPE__PRIMITIVE_TYPE);
 
 		collectionDataTypeEClass = createEClass(COLLECTION_DATA_TYPE);
-		createEReference(collectionDataTypeEClass, COLLECTION_DATA_TYPE__ELEMENT);
+		createEReference(collectionDataTypeEClass, COLLECTION_DATA_TYPE__ELEMENT_TYPE);
 
 		numericalDataTypeEClass = createEClass(NUMERICAL_DATA_TYPE);
 		createEAttribute(numericalDataTypeEClass, NUMERICAL_DATA_TYPE__PRECISION);
@@ -1351,6 +1386,7 @@ public class SQLDataTypesPackageImpl extends EPackageImpl implements SQLDataType
 		createEAttribute(characterSetEClass, CHARACTER_SET__REPERTOIRE);
 		createEAttribute(characterSetEClass, CHARACTER_SET__DEFAULT_COLLATION);
 		createEAttribute(characterSetEClass, CHARACTER_SET__ENCODING);
+		createEReference(characterSetEClass, CHARACTER_SET__CHARACTER_STRING_DATA_TYPE);
 		createEReference(characterSetEClass, CHARACTER_SET__SCHEMA);
 
 		timeDataTypeEClass = createEClass(TIME_DATA_TYPE);
@@ -1416,6 +1452,9 @@ public class SQLDataTypesPackageImpl extends EPackageImpl implements SQLDataType
 
 		xmlDataTypeEClass = createEClass(XML_DATA_TYPE);
 
+		elementTypeEClass = createEClass(ELEMENT_TYPE);
+		createEReference(elementTypeEClass, ELEMENT_TYPE__COLLECTION_DATA_TYPE);
+
 		// Create enums
 		coercibilityTypeEEnum = createEEnum(COERCIBILITY_TYPE);
 		intervalQualifierTypeEEnum = createEEnum(INTERVAL_QUALIFIER_TYPE);
@@ -1480,7 +1519,7 @@ public class SQLDataTypesPackageImpl extends EPackageImpl implements SQLDataType
 		domainEClass.getESuperTypes().add(this.getDistinctUserDefinedType());
 		fieldEClass.getESuperTypes().add(theSQLSchemaPackage.getTypedElement());
 		referenceDataTypeEClass.getESuperTypes().add(this.getConstructedDataType());
-		constructedDataTypeEClass.getESuperTypes().add(this.getSQLDataType());
+		constructedDataTypeEClass.getESuperTypes().add(this.getDataType());
 		sqlDataTypeEClass.getESuperTypes().add(this.getDataType());
 		dataLinkDataTypeEClass.getESuperTypes().add(this.getPredefinedDataType());
 		userDefinedTypeOrderingEClass.getESuperTypes().add(theSQLSchemaPackage.getSQLObject());
@@ -1489,6 +1528,7 @@ public class SQLDataTypesPackageImpl extends EPackageImpl implements SQLDataType
 		approximateNumericDataTypeEClass.getESuperTypes().add(this.getNumericalDataType());
 		integerDataTypeEClass.getESuperTypes().add(this.getExactNumericDataType());
 		xmlDataTypeEClass.getESuperTypes().add(this.getPredefinedDataType());
+		elementTypeEClass.getESuperTypes().add(theSQLSchemaPackage.getTypedElement());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(userDefinedTypeEClass, UserDefinedType.class, "UserDefinedType", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
@@ -1504,7 +1544,7 @@ public class SQLDataTypesPackageImpl extends EPackageImpl implements SQLDataType
 		initEAttribute(getPredefinedDataType_PrimitiveType(), this.getPrimitiveType(), "primitiveType", null, 0, 1, PredefinedDataType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(collectionDataTypeEClass, CollectionDataType.class, "CollectionDataType", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEReference(getCollectionDataType_Element(), this.getDataType(), null, "element", null, 1, -1, CollectionDataType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getCollectionDataType_ElementType(), this.getElementType(), this.getElementType_CollectionDataType(), "elementType", null, 1, 1, CollectionDataType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(numericalDataTypeEClass, NumericalDataType.class, "NumericalDataType", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEAttribute(getNumericalDataType_Precision(), ecorePackage.getEInt(), "precision", null, 0, 1, NumericalDataType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
@@ -1514,7 +1554,7 @@ public class SQLDataTypesPackageImpl extends EPackageImpl implements SQLDataType
 		initEAttribute(getCharacterStringDataType_Coercibility(), this.getCoercibilityType(), "coercibility", null, 0, 1, CharacterStringDataType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEAttribute(getCharacterStringDataType_FixedLength(), ecorePackage.getEBoolean(), "fixedLength", null, 0, 1, CharacterStringDataType.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEAttribute(getCharacterStringDataType_CollationName(), ecorePackage.getEString(), "collationName", null, 0, 1, CharacterStringDataType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getCharacterStringDataType_CharacterSet(), this.getCharacterSet(), null, "characterSet", null, 1, 1, CharacterStringDataType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getCharacterStringDataType_CharacterSet(), this.getCharacterSet(), this.getCharacterSet_CharacterStringDataType(), "characterSet", null, 1, 1, CharacterStringDataType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(rowDataTypeEClass, RowDataType.class, "RowDataType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEReference(getRowDataType_Fields(), this.getField(), null, "fields", null, 1, -1, RowDataType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
@@ -1542,6 +1582,7 @@ public class SQLDataTypesPackageImpl extends EPackageImpl implements SQLDataType
 		initEAttribute(getCharacterSet_Repertoire(), ecorePackage.getEString(), "repertoire", null, 0, 1, CharacterSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEAttribute(getCharacterSet_DefaultCollation(), ecorePackage.getEString(), "defaultCollation", null, 0, 1, CharacterSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEAttribute(getCharacterSet_Encoding(), ecorePackage.getEString(), "encoding", null, 0, 1, CharacterSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getCharacterSet_CharacterStringDataType(), this.getCharacterStringDataType(), this.getCharacterStringDataType_CharacterSet(), "CharacterStringDataType", null, 1, 1, CharacterSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getCharacterSet_Schema(), theSQLSchemaPackage.getSchema(), theSQLSchemaPackage.getSchema_CharSets(), "schema", null, 1, 1, CharacterSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(timeDataTypeEClass, TimeDataType.class, "TimeDataType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
@@ -1606,6 +1647,9 @@ public class SQLDataTypesPackageImpl extends EPackageImpl implements SQLDataType
 		initEClass(integerDataTypeEClass, IntegerDataType.class, "IntegerDataType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 
 		initEClass(xmlDataTypeEClass, XMLDataType.class, "XMLDataType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+
+		initEClass(elementTypeEClass, ElementType.class, "ElementType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getElementType_CollectionDataType(), this.getCollectionDataType(), this.getCollectionDataType_ElementType(), "CollectionDataType", null, 0, 1, ElementType.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		// Initialize enums and add enum literals
 		initEEnum(coercibilityTypeEEnum, CoercibilityType.class, "CoercibilityType"); //$NON-NLS-1$

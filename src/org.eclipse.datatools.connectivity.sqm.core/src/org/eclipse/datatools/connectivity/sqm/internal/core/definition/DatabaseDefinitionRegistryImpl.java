@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2009 IBM Corporation and others.
+ * Copyright (c) 2001, 2010 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,9 +9,11 @@
  *     IBM Corporation - initial API and implementation
  *     Actuate Corporation - added use of default DatabaseRecognizer (BZ 253523),
  *              plus OSGi stop and restart usage support
+ *     Actuate Corporation - fix for bug 304756
  *******************************************************************************/
 package org.eclipse.datatools.connectivity.sqm.internal.core.definition;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.Connection;
 import java.util.Collection;
@@ -33,10 +35,11 @@ import org.eclipse.datatools.connectivity.sqm.core.definition.DatabaseDefinition
 import org.eclipse.datatools.connectivity.sqm.core.definition.IDatabaseRecognizer;
 import org.eclipse.datatools.connectivity.sqm.internal.core.RDBCorePlugin;
 import org.eclipse.datatools.modelbase.sql.schema.Database;
-
+import org.eclipse.emf.common.util.URI;
 
 public final class DatabaseDefinitionRegistryImpl implements DatabaseDefinitionRegistry {
 	public static DatabaseDefinitionRegistry INSTANCE = new DatabaseDefinitionRegistryImpl();
+	private static final String uriPlatformScheme = "platform:/plugin"; //$NON-NLS-1$
 	
 	public static DatabaseDefinitionRegistry getInstance() {
 	    if( INSTANCE == null )
@@ -59,6 +62,10 @@ public final class DatabaseDefinitionRegistryImpl implements DatabaseDefinitionR
             INSTANCE = null;
         }
 	}
+
+    private Collection recognizers = null;
+    private Map products = new TreeMap();
+    private Map connectibleProductVersions = new TreeMap();
 	
 	public Iterator getProducts() {
 		return this.products.keySet().iterator();
@@ -93,6 +100,8 @@ public final class DatabaseDefinitionRegistryImpl implements DatabaseDefinitionR
 	}
 
 	public DatabaseDefinition getDefinition(String product, String version) {
+	    if (product == null) return null;
+
 		Map versions = (Map) this.products.get(product);
 		if(versions == null) {
 			return null;
@@ -103,7 +112,12 @@ public final class DatabaseDefinitionRegistryImpl implements DatabaseDefinitionR
 	}
 	
 	public DatabaseDefinition recognize(Connection connection) {
-		if(this.recognizers == null) loadRecognizers();
+		if(this.recognizers == null) {
+		    synchronized( this ) {
+		        if(this.recognizers == null) 
+		            loadRecognizers();
+		    }
+		}
 		Iterator it = this.recognizers.iterator();
 		while(it.hasNext()) {
 			IDatabaseRecognizer recognizer = (IDatabaseRecognizer) it.next();
@@ -122,6 +136,7 @@ public final class DatabaseDefinitionRegistryImpl implements DatabaseDefinitionR
 	}
 
 	private DatabaseDefinitionRegistryImpl() {
+		URL modelURL = null;
 		IExtensionRegistry pluginRegistry = Platform.getExtensionRegistry();
 		IExtensionPoint extensionPoint = pluginRegistry.getExtensionPoint("org.eclipse.datatools.connectivity.sqm.core", "databaseDefinition"); //$NON-NLS-1$ //$NON-NLS-2$
 		IExtension[] extensions = extensionPoint.getExtensions();
@@ -136,10 +151,24 @@ public final class DatabaseDefinitionRegistryImpl implements DatabaseDefinitionR
 					String productDisplayString = configElements[j].getAttribute("productDisplayString"); //$NON-NLS-1$
 					String versionDisplayString = configElements[j].getAttribute("versionDisplayString"); //$NON-NLS-1$
 					String modelLocation = configElements[j].getAttribute("file"); //$NON-NLS-1$
-					URL modelURL = modelLocation == null ? null : Platform
-							.getBundle(
-									configElements[j].getContributor()
+					if( modelLocation.startsWith(uriPlatformScheme))  { 
+						URI modelURI = URI.createURI(modelLocation);  
+						try {
+							modelURL = new URL(modelURI.toString());
+						} catch (MalformedURLException e) {
+						    IStatus status = new Status(IStatus.ERROR, RDBCorePlugin.getDefault().getBundle().getSymbolicName(), IStatus.ERROR,
+						            "The error was detected when creating the model url for " + modelLocation + " in "+ product + " " +version, //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						            e);
+							RDBCorePlugin.getDefault().getLog().log(status);
+						}
+					}
+					else {
+						modelURL = modelLocation == null ? null : Platform
+								.getBundle(
+										configElements[j].getContributor()
 											.getName()).getEntry(modelLocation);
+					}
+					
 					
 					DatabaseDefinitionImpl definition = new DatabaseDefinitionImpl(product, version, desc, productDisplayString, versionDisplayString, modelURL);
 					
@@ -211,7 +240,4 @@ public final class DatabaseDefinitionRegistryImpl implements DatabaseDefinitionR
 		}
 	}
 
-	private Collection recognizers = null;
-	private Map products = new TreeMap();
-	private Map connectibleProductVersions = new TreeMap();
 }

@@ -1,6 +1,6 @@
 /*
  *************************************************************************
- * Copyright (c) 2009 Actuate Corporation.
+ * Copyright (c) 2009, 2010 Actuate Corporation.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,11 +14,13 @@
 
 package org.eclipse.datatools.connectivity.oda.spec;
 
+import java.sql.Types;
+
 import org.eclipse.datatools.connectivity.oda.OdaException;
 import org.eclipse.datatools.connectivity.oda.spec.ExpressionVariable.VariableType;
+import org.eclipse.datatools.connectivity.oda.spec.util.QuerySpecificationHelper;
 
 /**
- * <strong>EXPERIMENTAL</strong>.
  * The abstract base class for an ODA expression
  * that resolves to a value.
  * It may be associated with an {@link ExpressionVariable} or
@@ -26,17 +28,21 @@ import org.eclipse.datatools.connectivity.oda.spec.ExpressionVariable.VariableTy
  * <br>It is the responsibility of an ODA driver to resolve an expression,
  * when evaluating it with a query result spec expression.
  * This may be extended to represent complex types of value expression.
- * @since 3.2.2 (DTP 1.7.2)
+ * @since 3.3 (DTP 1.8)
  */
 public abstract class ValueExpression
 {
+    public static final Integer UNKNOWN_ODA_DATA_TYPE = Integer.valueOf( Types.NULL );
+
     protected static final String SPACE = " "; //$NON-NLS-1$    
     protected static final String LEFT_PARANTHESIS = "("; //$NON-NLS-1$
     protected static final String RIGHT_PARANTHESIS = ")"; //$NON-NLS-1$
     protected static final String LEFT_CURLY_BRACKET = " {"; //$NON-NLS-1$
     protected static final String RIGHT_CURLY_BRACKET = "} "; //$NON-NLS-1$
+    // trace logging variables
+    private static final String sm_className = ValueExpression.class.getName();
     
-    private Integer m_odaDataTypeCode; 
+    private Integer m_odaDataType; 
     
     /**
      * Returns the qualified id of this value expression type.
@@ -73,7 +79,7 @@ public abstract class ValueExpression
      */
     public Integer getOdaDataType()
     {
-        return m_odaDataTypeCode;
+        return m_odaDataType;
     }
 
     /**
@@ -83,11 +89,22 @@ public abstract class ValueExpression
      * @param odaDataTypeCode the ODA data type code of this variable;
      *              may be null to unset current value
      */
-    public void setOdaDataType( Integer odaDataTypeCode )
+    public void setOdaDataType( Integer odaDataType )
     {
-        m_odaDataTypeCode = odaDataTypeCode;
+        m_odaDataType = odaDataType;
     }
-    
+
+    protected static boolean isNumeric( Integer odaDataType )
+    {
+        if( odaDataType == null || odaDataType == UNKNOWN_ODA_DATA_TYPE )
+            return false;
+        
+        int odaDataTypeCode = odaDataType.intValue();
+        return odaDataTypeCode == Types.INTEGER || 
+                odaDataTypeCode == Types.DOUBLE || 
+                odaDataTypeCode == Types.DECIMAL;
+    }
+
     /**
      * Checks whether two objects are equal using the
      * <code>equals(Object)</code> method of the <code>left</code> object.
@@ -123,11 +140,20 @@ public abstract class ValueExpression
     public void validate( ValidationContext context ) 
         throws OdaException
     {
-        validateSyntax( context );
+        try
+        {
+            validateSyntax( context );
 
-        // pass this to custom validator, if exists, for further overall validation
-        if( context != null && context.getValidator() != null )
-            context.getValidator().validate( this, context );
+            // pass this to custom validator, if exists, for further overall validation
+            if( context != null && context.getValidator() != null )
+                context.getValidator().validate( this, context );
+        }
+        catch( OdaException ex )
+        {
+            // log the exception before re-throwing it to the caller
+            QuerySpecificationHelper.logValidationException( sm_className, ex );
+            throw ex;
+        }
     }
 
     /**

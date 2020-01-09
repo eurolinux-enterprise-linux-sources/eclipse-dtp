@@ -11,15 +11,12 @@
  *  
  *************************************************************************
  *
- * $Id: NotExpression.java,v 1.1 2009/01/30 00:23:57 lchan Exp $
+ * $Id: NotExpression.java,v 1.2 2010/03/17 00:34:13 lchan Exp $
  */
 package org.eclipse.datatools.connectivity.oda.design;
 
 /**
  * <!-- begin-user-doc -->
- * <p>
- * <strong>EXPERIMENTAL</strong>.
- * </p>
  * A representation of the model object '<em><b>Not Expression</b></em>'.
  * <!-- end-user-doc -->
  *
@@ -35,7 +32,7 @@ package org.eclipse.datatools.connectivity.oda.design;
  * </p>
  *
  * @see org.eclipse.datatools.connectivity.oda.design.DesignPackage#getNotExpression()
- * @since 3.2 (DTP 1.7)
+ * @since 3.3 (DTP 1.8)
  * @model extendedMetaData="name='NotExpression' kind='elementOnly'"
  * @generated
  */

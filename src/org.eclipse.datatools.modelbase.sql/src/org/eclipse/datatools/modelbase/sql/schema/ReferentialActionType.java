@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ReferentialActionType.java,v 1.3 2006/09/07 00:19:47 dpchou Exp $
+ * $Id: ReferentialActionType.java,v 1.4 2010/02/16 06:50:52 hkolwalka Exp $
  */
 package org.eclipse.datatools.modelbase.sql.schema;
 
@@ -219,7 +219,7 @@ public final class ReferentialActionType extends AbstractEnumerator {
 			case SET_NULL: return SET_NULL_LITERAL;
 			case SET_DEFAULT: return SET_DEFAULT_LITERAL;
 		}
-		return null;	
+		return null;
 	}
 
 	/**

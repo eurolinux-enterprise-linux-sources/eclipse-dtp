@@ -1,6 +1,6 @@
 /*
  *************************************************************************
- * Copyright (c) 2009 Actuate Corporation.
+ * Copyright (c) 2009, 2010 Actuate Corporation.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -20,6 +20,7 @@ import java.util.Map.Entry;
 
 import org.eclipse.datatools.connectivity.oda.OdaException;
 import org.eclipse.datatools.connectivity.oda.spec.result.ResultSetSpecification;
+import org.eclipse.datatools.connectivity.oda.spec.util.QuerySpecificationHelper;
 
 /**
  * Specification of the query characteristics to apply when preparing and executing 
@@ -31,13 +32,16 @@ public class QuerySpecification
     private ResultSetSpecification m_resultSpec;
     private Map<String,Object> m_propertyMap;
     private Map<ParameterIdentifier,Object> m_parameterValues;
+
+    // trace logging variables
+    private static final String sm_className = QuerySpecification.class.getName();
     
     /*
      * Internal constructor.
      * <br>Use {@link org.eclipse.datatools.connectivity.oda.spec.util.QuerySpecificationHelper#createQuerySpecification()} 
      * to create an instance.
      */
-    public QuerySpecification() {}
+    QuerySpecification() {}
 
     /**
      * Specifies the value(s) of a data set query property, overriding existing values if any.  
@@ -280,7 +284,6 @@ public class QuerySpecification
     }
     
     /**
-     * <strong>EXPERIMENTAL</strong>.
      * Specifies the characteristics of all the result set(s) to be retrieved by
      * the associated {@link org.eclipse.datatools.connectivity.oda.IQuery}.
      * @param resultSpec    specification of a query's result set(s)
@@ -291,7 +294,6 @@ public class QuerySpecification
     }
     
     /**
-     * <strong>EXPERIMENTAL</strong>.
      * Gets the current result set specification of an {@link org.eclipse.datatools.connectivity.oda.IQuery}.
      * @return  the current {@link ResultSetSpecification}, or null if not specified
      */
@@ -301,7 +303,17 @@ public class QuerySpecification
     }
 
     /**
-     * <strong>EXPERIMENTAL</strong>.
+     * Indicates whether this contains a ResultSetSpecification with a non-empty content.
+     * @return  true if this contains a non-empty ResultSetSpecification; false otherwise
+     * @since 3.3.1 (DTP 1.8.1)
+     */
+    public boolean hasResultSetSpecification()
+    {
+        ResultSetSpecification resultSetSpec = getResultSetSpecification();
+        return ( resultSetSpec != null && ! resultSetSpec.isEmpty() );
+    }
+
+    /**
      * Validates this in the specified context. 
      * @param context   context for validation; may be null which would limit the scope of validation
      * @throws OdaException if validation failed.  The exception thrown may be a chained OdaException, 
@@ -314,8 +326,17 @@ public class QuerySpecification
         throws OdaException
     {
         // pass this to custom validator, if exists, for overall validation
-        if( context != null && context.getValidator() != null )
-            context.getValidator().validate( this, context );
+        try
+        {
+            if( context != null && context.getValidator() != null )
+                context.getValidator().validate( this, context );
+        }
+        catch( OdaException ex )
+        {
+            // log the exception before re-throwing it to the caller
+            QuerySpecificationHelper.logValidationException( sm_className, ex );
+            throw ex;
+        }
     }
     
     /**

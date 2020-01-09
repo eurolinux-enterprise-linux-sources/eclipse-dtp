@@ -1,17 +1,17 @@
 /**
  *************************************************************************
- * Copyright (c) 2005, 2009 Actuate Corporation.
+ * Copyright (c) 2005, 2010 Actuate Corporation.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *  Actuate Corporation  - initial API and implementation
+ *  Actuate Corporation - initial API and implementation
  *  
  *************************************************************************
  *
- * $Id: DataSetDesignImpl.java,v 1.12 2009/05/08 00:58:08 lchan Exp $
+ * $Id: DataSetDesignImpl.java,v 1.14 2010/03/13 02:00:28 lchan Exp $
  */
 package org.eclipse.datatools.connectivity.oda.design.impl;
 
@@ -25,6 +25,7 @@ import org.eclipse.datatools.connectivity.oda.design.DesignPackage;
 import org.eclipse.datatools.connectivity.oda.design.Properties;
 import org.eclipse.datatools.connectivity.oda.design.ResultSetDefinition;
 import org.eclipse.datatools.connectivity.oda.design.ResultSets;
+import org.eclipse.datatools.connectivity.oda.design.util.DesignUtil;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
@@ -64,7 +65,7 @@ public class DataSetDesignImpl extends EObjectImpl implements DataSetDesign,
      * <!-- end-user-doc -->
      * @generated
      */
-    public static final String copyright = "Copyright (c) 2005, 2009 Actuate Corporation"; //$NON-NLS-1$
+    public static final String copyright = "Copyright (c) 2005, 2010 Actuate Corporation"; //$NON-NLS-1$
 
     /**
      * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -497,15 +498,34 @@ public class DataSetDesignImpl extends EObjectImpl implements DataSetDesign,
             eNotify( new ENotificationImpl( this, Notification.SET,
                     DesignPackage.DATA_SET_DESIGN__QUERY, newQuery, newQuery ) );
     }
-
+    
+    /* (non-Javadoc)
+     * @see org.eclipse.datatools.connectivity.oda.design.DataSetDesign#getDisplayName()
+     * @generated NOT
+     */
+    public String getDisplayName()
+    {
+        return DesignUtil.getDefaultResourceString( getDisplayNameGen() );
+    }
+    
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    public String getDisplayName()
+    protected String getDisplayNameGen()
     {
         return m_displayName;
+    }
+
+    /* (non-Javadoc)
+     * @see org.eclipse.datatools.connectivity.oda.design.DataSetDesign#setDisplayName(java.lang.String)
+     * @generated NOT
+     */
+    public void setDisplayName( String newDisplayName )
+    {
+        String newAttrValue = DesignUtil.addDefaultToResourceAttribute( newDisplayName, getDisplayNameGen() );
+        setDisplayNameGen( newAttrValue );
     }
 
     /**
@@ -513,7 +533,7 @@ public class DataSetDesignImpl extends EObjectImpl implements DataSetDesign,
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setDisplayName( String newDisplayName )
+    protected void setDisplayNameGen( String newDisplayName )
     {
         String oldDisplayName = m_displayName;
         m_displayName = newDisplayName;
@@ -521,6 +541,25 @@ public class DataSetDesignImpl extends EObjectImpl implements DataSetDesign,
             eNotify( new ENotificationImpl( this, Notification.SET,
                     DesignPackage.DATA_SET_DESIGN__DISPLAY_NAME,
                     oldDisplayName, m_displayName ) );
+    }
+    
+    /* (non-Javadoc)
+     * @see org.eclipse.datatools.connectivity.oda.design.DataSetDesign#getDisplayNameKey()
+     * @generated NOT
+     */
+    public String getDisplayNameKey()
+    {
+        return DesignUtil.getResourceKey( getDisplayNameGen() );
+    }
+
+    /* (non-Javadoc)
+     * @see org.eclipse.datatools.connectivity.oda.design.DataSetDesign#setDisplayNameKey(java.lang.String)
+     * @generated NOT
+     */
+    public void setDisplayNameKey( String newDisplayNameKey )
+    {
+        String newAttrValue = DesignUtil.addKeyToResourceAttribute( newDisplayNameKey, getDisplayNameGen() );
+        setDisplayNameGen( newAttrValue );
     }
 
     /**
@@ -842,7 +881,7 @@ public class DataSetDesignImpl extends EObjectImpl implements DataSetDesign,
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     @Override
     public Object eGet( int featureID, boolean resolve, boolean coreType )
@@ -858,7 +897,7 @@ public class DataSetDesignImpl extends EObjectImpl implements DataSetDesign,
         case DesignPackage.DATA_SET_DESIGN__QUERY:
             return getQuery();
         case DesignPackage.DATA_SET_DESIGN__DISPLAY_NAME:
-            return getDisplayName();
+            return getDisplayNameGen();
         case DesignPackage.DATA_SET_DESIGN__PUBLIC_PROPERTIES:
             return getPublicProperties();
         case DesignPackage.DATA_SET_DESIGN__PRIVATE_PROPERTIES:
@@ -876,7 +915,7 @@ public class DataSetDesignImpl extends EObjectImpl implements DataSetDesign,
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     @Override
     public void eSet( int featureID, Object newValue )
@@ -896,7 +935,7 @@ public class DataSetDesignImpl extends EObjectImpl implements DataSetDesign,
             setQuery( (DataSetQuery) newValue );
             return;
         case DesignPackage.DATA_SET_DESIGN__DISPLAY_NAME:
-            setDisplayName( (String) newValue );
+            setDisplayNameGen( (String) newValue );
             return;
         case DesignPackage.DATA_SET_DESIGN__PUBLIC_PROPERTIES:
             setPublicProperties( (Properties) newValue );
@@ -920,7 +959,7 @@ public class DataSetDesignImpl extends EObjectImpl implements DataSetDesign,
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     @Override
     public void eUnset( int featureID )
@@ -940,7 +979,7 @@ public class DataSetDesignImpl extends EObjectImpl implements DataSetDesign,
             setQuery( (DataSetQuery) null );
             return;
         case DesignPackage.DATA_SET_DESIGN__DISPLAY_NAME:
-            setDisplayName( DISPLAY_NAME_EDEFAULT );
+            setDisplayNameGen( DISPLAY_NAME_EDEFAULT );
             return;
         case DesignPackage.DATA_SET_DESIGN__PUBLIC_PROPERTIES:
             setPublicProperties( (Properties) null );

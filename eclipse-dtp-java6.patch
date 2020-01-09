@@ -1,10 +1,12 @@
+### Eclipse Workspace Patch 1.0
+#P org.eclipse.datatools.connectivity.sqm.core
 Index: src/org/eclipse/datatools/connectivity/sqm/internal/core/connection/ConnectionAdapter.java
 ===================================================================
 RCS file: /cvsroot/datatools/org.eclipse.datatools.connectivity/plugins/org.eclipse.datatools.connectivity.sqm.core/src/org/eclipse/datatools/connectivity/sqm/internal/core/connection/ConnectionAdapter.java,v
-retrieving revision 1.1
-diff -u -r1.1 ConnectionAdapter.java
---- org.eclipse.datatools.connectivity.sqm.core/src/org/eclipse/datatools/connectivity/sqm/internal/core/connection/ConnectionAdapter.java	9 Dec 2005 21:13:16 -0000	1.1
-+++ org.eclipse.datatools.connectivity.sqm.core/src/org/eclipse/datatools/connectivity/sqm/internal/core/connection/ConnectionAdapter.java	28 Feb 2008 17:35:43 -0000
+retrieving revision 1.5
+diff -u -r1.5 ConnectionAdapter.java
+--- src/org/eclipse/datatools/connectivity/sqm/internal/core/connection/ConnectionAdapter.java	17 Feb 2009 14:52:31 -0000	1.5
++++ src/org/eclipse/datatools/connectivity/sqm/internal/core/connection/ConnectionAdapter.java	20 Jul 2010 15:22:13 -0000
 @@ -10,15 +10,23 @@
   *******************************************************************************/
  package org.eclipse.datatools.connectivity.sqm.internal.core.connection;
@@ -108,40 +110,13 @@ diff -u -r1.1 ConnectionAdapter.java
 +		return connection.unwrap(arg0);
  	}
  }
-Index: src/org/eclipse/datatools/connectivity/sqm/internal/core/connection/StatementAdapter.java
-===================================================================
-RCS file: /cvsroot/datatools/org.eclipse.datatools.connectivity/plugins/org.eclipse.datatools.connectivity.sqm.core/src/org/eclipse/datatools/connectivity/sqm/internal/core/connection/StatementAdapter.java,v
-retrieving revision 1.1
-diff -u -r1.1 StatementAdapter.java
---- org.eclipse.datatools.connectivity.sqm.core/src/org/eclipse/datatools/connectivity/sqm/internal/core/connection/StatementAdapter.java	9 Dec 2005 21:13:16 -0000	1.1
-+++ org.eclipse.datatools.connectivity.sqm.core/src/org/eclipse/datatools/connectivity/sqm/internal/core/connection/StatementAdapter.java	28 Feb 2008 17:35:44 -0000
-@@ -160,4 +160,19 @@
- 	public String toString() {
- 		return statement.toString();
- 	}
-+	public boolean isClosed() throws SQLException {
-+		return statement.isClosed();
-+	}
-+	public boolean isPoolable() throws SQLException {
-+		return statement.isPoolable();
-+	}
-+	public boolean isWrapperFor(Class arg0) throws SQLException {
-+		return statement.isWrapperFor(arg0);
-+	}
-+	public void setPoolable(boolean poolable) throws SQLException {
-+		statement.setPoolable(poolable);
-+	}
-+	public Object unwrap(Class arg0) throws SQLException {
-+		return statement.unwrap(arg0);
-+	}
- }
 Index: src/org/eclipse/datatools/connectivity/sqm/internal/core/connection/ResultSetAdapter.java
 ===================================================================
 RCS file: /cvsroot/datatools/org.eclipse.datatools.connectivity/plugins/org.eclipse.datatools.connectivity.sqm.core/src/org/eclipse/datatools/connectivity/sqm/internal/core/connection/ResultSetAdapter.java,v
-retrieving revision 1.1
-diff -u -r1.1 ResultSetAdapter.java
---- org.eclipse.datatools.connectivity.sqm.core/src/org/eclipse/datatools/connectivity/sqm/internal/core/connection/ResultSetAdapter.java	9 Dec 2005 21:13:16 -0000	1.1
-+++ org.eclipse.datatools.connectivity.sqm.core/src/org/eclipse/datatools/connectivity/sqm/internal/core/connection/ResultSetAdapter.java	28 Feb 2008 17:35:44 -0000
+retrieving revision 1.5
+diff -u -r1.5 ResultSetAdapter.java
+--- src/org/eclipse/datatools/connectivity/sqm/internal/core/connection/ResultSetAdapter.java	17 Feb 2009 14:52:31 -0000	1.5
++++ src/org/eclipse/datatools/connectivity/sqm/internal/core/connection/ResultSetAdapter.java	20 Jul 2010 15:22:13 -0000
 @@ -18,11 +18,14 @@
  import java.sql.Blob;
  import java.sql.Clob;
@@ -340,5 +315,33 @@ diff -u -r1.1 ResultSetAdapter.java
 +	public void updateSQLXML(String columnLabel, SQLXML xmlObject)
 +			throws SQLException {
 +		resultSet.updateSQLXML(columnLabel, xmlObject);
++	}
+ }
+Index: src/org/eclipse/datatools/connectivity/sqm/internal/core/connection/StatementAdapter.java
+===================================================================
+RCS file: /cvsroot/datatools/org.eclipse.datatools.connectivity/plugins/org.eclipse.datatools.connectivity.sqm.core/src/org/eclipse/datatools/connectivity/sqm/internal/core/connection/StatementAdapter.java,v
+retrieving revision 1.8
+diff -u -r1.8 StatementAdapter.java
+--- src/org/eclipse/datatools/connectivity/sqm/internal/core/connection/StatementAdapter.java	28 Feb 2010 09:54:06 -0000	1.8
++++ src/org/eclipse/datatools/connectivity/sqm/internal/core/connection/StatementAdapter.java	20 Jul 2010 15:22:13 -0000
+@@ -204,4 +204,20 @@
+ 	}
+ 	    
+ 	private static ArrayList handers = null;
++
++	public boolean isWrapperFor(Class arg0) throws SQLException {
++		return statement.isWrapperFor(arg0);
++	}
++	public Object unwrap(Class arg0) throws SQLException {
++		return statement.unwrap(arg0);
++	}
++	public boolean isClosed() throws SQLException {
++		return statement.isClosed();
++	}
++	public boolean isPoolable() throws SQLException {
++		return statement.isPoolable();
++	}
++	public void setPoolable(boolean poolable) throws SQLException {
++		statement.setPoolable(poolable);
 +	}
  }

@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: IntegrityControlOption.java,v 1.3 2006/09/07 00:19:48 dpchou Exp $
+ * $Id: IntegrityControlOption.java,v 1.4 2010/02/16 06:50:52 hkolwalka Exp $
  */
 package org.eclipse.datatools.modelbase.sql.datatypes;
 
@@ -162,7 +162,7 @@ public final class IntegrityControlOption extends AbstractEnumerator {
 			case SELECTIVE: return SELECTIVE_LITERAL;
 			case NONE: return NONE_LITERAL;
 		}
-		return null;	
+		return null;
 	}
 
 	/**

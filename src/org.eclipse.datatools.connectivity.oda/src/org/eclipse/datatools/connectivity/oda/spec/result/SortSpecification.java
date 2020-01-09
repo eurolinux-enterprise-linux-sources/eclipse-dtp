@@ -1,6 +1,6 @@
 /*
  *************************************************************************
- * Copyright (c) 2004, 2009 Actuate Corporation.
+ * Copyright (c) 2004, 2010 Actuate Corporation.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -21,14 +21,14 @@ import org.eclipse.datatools.connectivity.oda.IDataSetMetaData;
 import org.eclipse.datatools.connectivity.oda.OdaException;
 import org.eclipse.datatools.connectivity.oda.nls.Messages;
 import org.eclipse.datatools.connectivity.oda.spec.ValidationContext;
+import org.eclipse.datatools.connectivity.oda.spec.util.QuerySpecificationHelper;
 
 /**
- * <strong>EXPERIMENTAL</strong>.
  * Specification of one or more dynamic sort keys of a query result set.
  * <br>Its application would impact the ordering of data rows retrieved in a result set,
  * in addition to any required sort specification expressed in a query text.
  * This may be extended to define additional ways of expressing a sort mode or key.
- * @since 3.2 (DTP 1.7)
+ * @since 3.3 (DTP 1.8)
  */
 public class SortSpecification
 {
@@ -55,19 +55,20 @@ public class SortSpecification
 	private List<SortKey> m_sortKeys;
 
     private static final String LOG_NEWLINE_CHAR = "\n "; //$NON-NLS-1$
+    private static final String sm_className = SortSpecification.class.getName();
 	
 	/**
-	 * Internal constructor with no pre-defined restriction on its sort mode.
+	 * Base class constructor with no pre-defined restriction on its sort mode.
      * <br>Use {@link org.eclipse.datatools.connectivity.oda.spec.util.QuerySpecificationHelper#createSortSpecification()} 
      * to create an instance.
 	 */
-	public SortSpecification()
+	protected SortSpecification()
 	{
 	    this( SORT_MODE_UNDEFINED );
 	}
 	
 	/**
-	 * Internal constructor with the defined <code>sortMode</code>.
+	 * Base class constructor with the defined <code>sortMode</code>.
      * By specifiying a sort mode, a sort key that gets added to this specification
      * will be validated to match the sort mode.
      * <br>Use {@link org.eclipse.datatools.connectivity.oda.spec.util.QuerySpecificationHelper#createSortSpecification(int)} 
@@ -80,7 +81,7 @@ public class SortSpecification
 	 * @throws IllegalArgumentException	if the <code>sortMode</code> is not a 
 	 * 									valid value.
 	 */
-	public SortSpecification( int sortMode )
+	protected SortSpecification( int sortMode )
 	{
 		if( sortMode != IDataSetMetaData.sortModeNone &&
 			sortMode != IDataSetMetaData.sortModeSingleOrder &&
@@ -421,9 +422,18 @@ public class SortSpecification
     public void validate( ValidationContext context ) 
         throws OdaException
     {
-        // pass this to custom validator, if exists, for overall validation
-        if( context != null && context.getValidator() != null )
-            context.getValidator().validate( this, context );
+        try
+        {
+            // pass this to custom validator, if exists, for overall validation
+            if( context != null && context.getValidator() != null )
+                context.getValidator().validate( this, context );
+        }
+        catch( OdaException ex )
+        {
+            // log the exception before re-throwing it to the caller
+            QuerySpecificationHelper.logValidationException( sm_className, ex );
+            throw ex;
+        }
     }
 
 	/*

@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ReadPermissionOption.java,v 1.3 2006/09/07 00:19:48 dpchou Exp $
+ * $Id: ReadPermissionOption.java,v 1.4 2010/02/16 06:50:52 hkolwalka Exp $
  */
 package org.eclipse.datatools.modelbase.sql.datatypes;
 
@@ -135,7 +135,7 @@ public final class ReadPermissionOption extends AbstractEnumerator {
 			case FS: return FS_LITERAL;
 			case DB: return DB_LITERAL;
 		}
-		return null;	
+		return null;
 	}
 
 	/**

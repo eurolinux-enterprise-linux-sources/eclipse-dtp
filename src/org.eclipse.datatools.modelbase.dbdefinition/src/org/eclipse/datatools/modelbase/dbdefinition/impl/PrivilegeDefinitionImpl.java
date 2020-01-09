@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: PrivilegeDefinitionImpl.java,v 1.1 2007/05/31 00:29:10 dpchou Exp $
+ * $Id: PrivilegeDefinitionImpl.java,v 1.2 2010/02/12 18:27:14 hkolwalka Exp $
  */
 package org.eclipse.datatools.modelbase.dbdefinition.impl;
 
@@ -46,7 +46,7 @@ public class PrivilegeDefinitionImpl extends EObjectImpl implements PrivilegeDef
 	 * @generated
 	 * @ordered
 	 */
-	protected EList actionElementDefinitions = null;
+	protected EList actionElementDefinitions;
 
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.

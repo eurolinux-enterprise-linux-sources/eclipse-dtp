@@ -1,6 +1,6 @@
 /*
  *************************************************************************
- * Copyright (c) 2009 Actuate Corporation.
+ * Copyright (c) 2009, 2010 Actuate Corporation.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -21,12 +21,11 @@ import org.eclipse.datatools.connectivity.oda.IQuery;
 import org.eclipse.datatools.connectivity.oda.spec.result.ResultSetSpecification;
 
 /**
- * <strong>EXPERIMENTAL</strong>.
  * Extended specification of the query characteristics to apply when preparing and executing 
  * a query text of an {@link org.eclipse.datatools.connectivity.oda.IAdvancedQuery}.
  * It takes effect only if assigned prior to an IAdvancedQuery prepares a query text
  * at {@link IQuery#prepare(String)}.
- * @since 3.2 (DTP 1.7)
+ * @since 3.3 (DTP 1.8)
  */
 public class AdvancedQuerySpecification extends QuerySpecification
 {
@@ -38,7 +37,7 @@ public class AdvancedQuerySpecification extends QuerySpecification
      * <br>Use {@link org.eclipse.datatools.connectivity.oda.spec.util.QuerySpecificationHelper#createAdvancedQuerySpecification()} 
      * to create an instance.
      */
-    public AdvancedQuerySpecification() {}
+    AdvancedQuerySpecification() {}
     
     /**
      * Specifies the characteristics of the named result set to be retrieved by

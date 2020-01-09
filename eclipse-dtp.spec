@@ -6,8 +6,8 @@
 %global eclipse_dropin   %{_datadir}/eclipse/dropins
 
 Name:      eclipse-dtp
-Version:   1.7.2
-Release:   1%{?dist}
+Version:   1.8.1
+Release:   1.1%{?dist}
 Summary:   Eclipse Data Tools Platform
 Group:     System Environment/Libraries
 License:   EPL
@@ -19,6 +19,7 @@ URL:       http://www.eclipse.org/datatools/
 Source0:   dtp-%{version}.tar.gz
 Source1:   get-dtp.sh
 
+# Build with Java 6 SQL interfaces
 Patch0:    %{name}-java6.patch
 
 # remove duplicate plugin from sqltools features (it's actually built in the
@@ -66,7 +67,9 @@ data-centric technologies and supported by the DTP ecosystem.
 %setup -q -n dtp-%{version}
 
 # apply patches
+pushd org.eclipse.datatools.connectivity.sqm.core
 %patch0
+popd
 %patch1
 
 # make sure upstream hasn't sneaked in any jars we don't know about
@@ -143,6 +146,17 @@ rm -rf %{buildroot}
 %doc org.eclipse.datatools.sdk-all.feature/rootfiles/*
 
 %changelog
+* Thu Jan 13 2011 Alexander Kurtakov <akurtako@redhat.com> 1.8.1-1.1
+- RHEL 6.1 rebase.
+
+* Tue Nov 23 2010 Chris Aniszczyk <zx@redhat.com> 1.8.1-1
+- Update to 1.8.1 (Helios SR1).
+
+* Tue Jul 20 2010 Andrew Overholt <overholt@redhat.com> 1.8.0-1
+- Update to 1.8.0 (Helios).
+- Clarify get-dtp.sh a bit.
+- Re-generate Java 6 patch.
+
 * Thu Mar 11 2010 Alexander Kurtakov <akurtako@redhat.com> 1.7.2-1
 - Update to 1.7.2.
 

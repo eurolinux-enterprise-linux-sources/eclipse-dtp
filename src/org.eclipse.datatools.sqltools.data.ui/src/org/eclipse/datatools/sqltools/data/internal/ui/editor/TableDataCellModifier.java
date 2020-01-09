@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2004 IBM Corporation and others.
+ * Copyright (c) 2001, 2010 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,6 +16,7 @@ import org.eclipse.datatools.modelbase.sql.tables.Column;
 import org.eclipse.datatools.sqltools.data.internal.core.common.IColumnDataAccessor;
 import org.eclipse.datatools.sqltools.data.internal.core.editor.IRowData;
 import org.eclipse.datatools.sqltools.data.internal.core.editor.ITableData;
+import org.eclipse.datatools.sqltools.data.internal.core.editor.ITableData2;
 import org.eclipse.datatools.sqltools.data.internal.ui.DataUIPlugin;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.viewers.ICellModifier;
@@ -26,13 +27,13 @@ public class TableDataCellModifier implements ICellModifier {
 
     protected static final int MAX_LENGTH = Integer.MAX_VALUE;
     
-    protected TableDataEditor editor;
+    protected ITableDataEditor editor;
     protected TableViewer viewer;
     
     protected boolean canModify = false;
     protected boolean isModifying = false;
     
-    public TableDataCellModifier(TableDataEditor editor, TableViewer viewer)
+    public TableDataCellModifier(ITableDataEditor editor, TableViewer viewer)
     {
         this.editor = editor;
         this.viewer = viewer;
@@ -75,7 +76,13 @@ public class TableDataCellModifier implements ICellModifier {
      */
     protected boolean isColumnGenerated(int colIndex)
     {
-    	Column sqlCol = (Column) editor.getSqlTable().getColumns().get(colIndex);    	
+    	Column sqlCol = null;
+    	if (editor.getTableData() instanceof ITableData2) {
+    		sqlCol = (Column) ((ITableData2)editor.getTableData()).getResultColumns().get(colIndex);    	
+    	}
+    	else {
+    		sqlCol = (Column) editor.getSqlTable().getColumns().get(colIndex);    	
+    	}
     	return (sqlCol.getIdentitySpecifier() != null);
     }
     

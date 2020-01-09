@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenerateType.java,v 1.3 2006/09/07 00:19:47 dpchou Exp $
+ * $Id: GenerateType.java,v 1.4 2010/02/16 06:50:52 hkolwalka Exp $
  */
 package org.eclipse.datatools.modelbase.sql.schema;
 
@@ -139,7 +139,7 @@ public final class GenerateType extends AbstractEnumerator {
 			case DEFAULT_GENERATED: return DEFAULT_GENERATED_LITERAL;
 			case ALWAYS_GENERATED: return ALWAYS_GENERATED_LITERAL;
 		}
-		return null;	
+		return null;
 	}
 
 	/**

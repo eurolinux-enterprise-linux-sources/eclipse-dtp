@@ -1,6 +1,6 @@
 /*
  *************************************************************************
- * Copyright (c) 2009 Actuate Corporation.
+ * Copyright (c) 2009, 2010 Actuate Corporation.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,28 +16,30 @@ package org.eclipse.datatools.connectivity.oda.spec.result;
 
 import org.eclipse.datatools.connectivity.oda.OdaException;
 import org.eclipse.datatools.connectivity.oda.spec.ValidationContext;
+import org.eclipse.datatools.connectivity.oda.spec.util.QuerySpecificationHelper;
 
 
 /**
- * <strong>EXPERIMENTAL</strong>.
  * Specification of the characteristics of an {@link org.eclipse.datatools.connectivity.oda.IResultSet} 
  * to be retrieved by the associated {@link org.eclipse.datatools.connectivity.oda.IQuery}.
  * <br>Its application would impact the shape of data retrieved in a result set,
  * in addition to any specification expressed in a query text.
- * @since 3.2 (DTP 1.7)
+ * @since 3.3 (DTP 1.8)
  */
 public class ResultSetSpecification
 {
     private FilterExpression m_filterSpec;
     private ResultProjection m_projectionSpec;
     private SortSpecification m_sortSpec;
+    // trace logging variables
+    private static final String sm_className = ResultSetSpecification.class.getName();
     
     /**
-     * Internal constructor.
+     * Base class constructor.
      * <br>Use {@link org.eclipse.datatools.connectivity.oda.spec.util.QuerySpecificationHelper#createResultSetSpecification()} 
      * to create an instance.
      */
-    public ResultSetSpecification() {}
+    protected ResultSetSpecification() {}
     
     /**
      * Specifies the filtering characteristics of a query result set.
@@ -108,6 +110,20 @@ public class ResultSetSpecification
     }
 
     /**
+     * Indicates whether this has an empty content.
+     * @return  true if this has an empty content; false otherwise
+     * @since 3.3.1 (DTP 1.8.1)
+     */
+    public boolean isEmpty()
+    {
+        if( getFilterSpecification() != null || getSortSpecification() != null )
+            return false;
+
+        ResultProjection resultProj = getResultProjection();
+        return ( resultProj == null || resultProj.isEmpty() );
+    }
+    
+    /**
      * Validates this in the specified context. 
      * @param context   context for validation; may be null which would limit the scope of validation
      * @throws OdaException if validation failed.  The exception thrown may be a chained OdaException, 
@@ -119,9 +135,18 @@ public class ResultSetSpecification
     public void validate( ValidationContext context ) 
         throws OdaException
     {
-        // pass this to custom validator, if exists, for overall validation
-        if( context != null && context.getValidator() != null )
-            context.getValidator().validate( this, context );
+        try
+        {
+            // pass this to custom validator, if exists, for overall validation
+            if( context != null && context.getValidator() != null )
+                context.getValidator().validate( this, context );
+        }
+        catch( OdaException ex )
+        {
+            // log the exception before re-throwing it to the caller
+            QuerySpecificationHelper.logValidationException( sm_className, ex );
+            throw ex;
+        }
     }
         
 }

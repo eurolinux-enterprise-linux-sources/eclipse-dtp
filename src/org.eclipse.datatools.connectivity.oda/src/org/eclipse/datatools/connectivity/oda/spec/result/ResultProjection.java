@@ -1,6 +1,6 @@
 /*
  *************************************************************************
- * Copyright (c) 2009 Actuate Corporation.
+ * Copyright (c) 2009, 2010 Actuate Corporation.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -26,10 +26,9 @@ import org.eclipse.datatools.connectivity.oda.spec.ExpressionVariable;
 import org.eclipse.datatools.connectivity.oda.spec.util.ValidatorUtil;
 
 /**
- * <strong>EXPERIMENTAL</strong>.
  * Specification for the projection of an {@link org.eclipse.datatools.connectivity.oda.IResultSet} 
  * to be retrieved by an associated {@link org.eclipse.datatools.connectivity.oda.IQuery}.
- * @since 3.2 (DTP 1.7)
+ * @since 3.3 (DTP 1.8)
  */
 public class ResultProjection
 {
@@ -42,11 +41,11 @@ public class ResultProjection
     private static final String LOG_PAIR_ENTRY_SEPARATOR = " ->\n    "; //$NON-NLS-1$
     
     /**
-     * Internal constructor.
+     * Base class constructor.
      * <br>Use {@link org.eclipse.datatools.connectivity.oda.spec.util.QuerySpecificationHelper#createResultProjection()} 
      * to create an instance.
      */
-    public ResultProjection() {}
+    protected ResultProjection() {}
     
     /**
      * Specifies an aggregate expression whose output value is projected on the 
@@ -170,6 +169,18 @@ public class ResultProjection
             m_hiddenColumns = new ArrayList<ColumnIdentifier>(MAP_INITIAL_CAPACITY);
         
         return m_hiddenColumns;
+    }
+    
+    /**
+     * Indicates whether this has an empty content.
+     * @return  true if this has an empty content; false otherwise
+     * @since 3.3.1 (DTP 1.8.1)
+     */
+    public boolean isEmpty()
+    {
+        return( getAddedResultColumns().isEmpty() && 
+                getAggregatedColumns().isEmpty() && 
+                getHiddenResultColumns().isEmpty() );
     }
     
     private void validateColumnIdentifier( ColumnIdentifier resultColumn ) throws OdaException

@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %Plugin.Name
 Bundle-SymbolicName: org.eclipse.datatools.connectivity.ui; singleton:=true
-Bundle-Version: 1.1.5.qualifier
+Bundle-Version: 1.2.0.qualifier
 Bundle-Activator: org.eclipse.datatools.connectivity.internal.ui.ConnectivityUIPlugin
 Bundle-Vendor: %Plugin.ProviderName
 Bundle-Localization: plugin
@@ -18,7 +18,8 @@ Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.ltk.core.refactoring;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.datatools.help;bundle-version="[1.0.0,2.0.0)",
  org.eclipse.help;bundle-version="[3.2.0,4.0.0)";visibility:=reexport,
- org.eclipse.datatools.connectivity.sqm.core;bundle-version="[1.0.1,2.0.0)"
+ org.eclipse.datatools.connectivity.sqm.core;bundle-version="[1.0.1,2.0.0)",
+ org.eclipse.datatools.modelbase.sql;bundle-version="[1.0.0,2.0.0)"
 Eclipse-LazyStart: true
 Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipse.datatools.connectivity.internal.ui,

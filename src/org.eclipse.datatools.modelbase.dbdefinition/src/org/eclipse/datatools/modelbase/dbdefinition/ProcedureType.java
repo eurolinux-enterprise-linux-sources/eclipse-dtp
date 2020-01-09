@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ProcedureType.java,v 1.3 2006/10/11 20:34:54 dpchou Exp $
+ * $Id: ProcedureType.java,v 1.4 2010/02/12 18:27:13 hkolwalka Exp $
  */
 package org.eclipse.datatools.modelbase.dbdefinition;
 
@@ -135,7 +135,7 @@ public final class ProcedureType extends AbstractEnumerator {
 			case PROCEDURE: return PROCEDURE_LITERAL;
 			case FUNCTION: return FUNCTION_LITERAL;
 		}
-		return null;	
+		return null;
 	}
 
 	/**

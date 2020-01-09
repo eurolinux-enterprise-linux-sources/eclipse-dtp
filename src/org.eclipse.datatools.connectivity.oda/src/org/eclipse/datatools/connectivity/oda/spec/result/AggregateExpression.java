@@ -1,6 +1,6 @@
 /*
  *************************************************************************
- * Copyright (c) 2009 Actuate Corporation.
+ * Copyright (c) 2009, 2010 Actuate Corporation.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -20,16 +20,15 @@ import java.util.List;
 import org.eclipse.datatools.connectivity.oda.OdaException;
 import org.eclipse.datatools.connectivity.oda.spec.ExpressionVariable;
 import org.eclipse.datatools.connectivity.oda.spec.ValidationContext;
+import org.eclipse.datatools.connectivity.oda.spec.util.QuerySpecificationHelper;
 
 /**
- * <strong>EXPERIMENTAL</strong>.
- * </p>
  * The abstract base class for all ODA aggregate expressions.
  * <p>
  * An expression may be validated by an {@link org.eclipse.datatools.connectivity.oda.spec.IValidator} implemented
  * by an extension of the org.eclipse.datatools.connectivity.oda.dynamicResultSet extension point.
  * </p>
- * @since 3.2 (DTP 1.7)
+ * @since 3.3 (DTP 1.8)
  */
 public abstract class AggregateExpression
 {    
@@ -39,6 +38,7 @@ public abstract class AggregateExpression
     private String m_alias;
 
     private static final String LOG_VAR_ENTRY = "\n      "; //$NON-NLS-1$
+    private static final String sm_className = AggregateExpression.class.getName();
 
     /**
      * Constructor with a single input source variable.
@@ -181,13 +181,22 @@ public abstract class AggregateExpression
     public void validate( ValidationContext context ) 
         throws OdaException
     {
-        validateSyntax( context );
-    
-        // pass this to custom validator, if exists, for further overall validation;
-        // up to custom validator class to resolve a variable's data type and validate
-        // against one of the expression's restricted data types
-        if( context != null && context.getValidator() != null )
-            context.getValidator().validate( this, context );
+        try
+        {
+            validateSyntax( context );
+   
+            // pass this to custom validator, if exists, for further overall validation;
+            // up to custom validator class to resolve a variable's data type and validate
+            // against one of the expression's restricted data types
+            if( context != null && context.getValidator() != null )
+                context.getValidator().validate( this, context );
+        }
+        catch( OdaException ex )
+        {
+            // log the exception before re-throwing it to the caller
+            QuerySpecificationHelper.logValidationException( sm_className, ex );
+            throw ex;
+        }
     }
 
     /**

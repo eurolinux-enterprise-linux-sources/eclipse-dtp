@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ParentUpdateDRIRuleType.java,v 1.3 2006/10/11 20:34:55 dpchou Exp $
+ * $Id: ParentUpdateDRIRuleType.java,v 1.4 2010/02/12 18:27:13 hkolwalka Exp $
  */
 package org.eclipse.datatools.modelbase.dbdefinition;
 
@@ -216,7 +216,7 @@ public final class ParentUpdateDRIRuleType extends AbstractEnumerator {
 			case SET_NULL: return SET_NULL_LITERAL;
 			case SET_DEFAULT: return SET_DEFAULT_LITERAL;
 		}
-		return null;	
+		return null;
 	}
 
 	/**

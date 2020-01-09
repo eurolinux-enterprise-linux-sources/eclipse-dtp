@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: PrivilegedElementDefinitionImpl.java,v 1.1 2007/05/31 00:29:10 dpchou Exp $
+ * $Id: PrivilegedElementDefinitionImpl.java,v 1.2 2010/02/12 18:27:14 hkolwalka Exp $
  */
 package org.eclipse.datatools.modelbase.dbdefinition.impl;
 
@@ -49,7 +49,7 @@ public class PrivilegedElementDefinitionImpl extends EObjectImpl implements Priv
 	 * @generated
 	 * @ordered
 	 */
-	protected EList privilegeDefinitions = null;
+	protected EList privilegeDefinitions;
 
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.

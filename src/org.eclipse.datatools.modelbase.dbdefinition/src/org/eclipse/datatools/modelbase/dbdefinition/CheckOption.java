@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: CheckOption.java,v 1.3 2006/10/11 20:34:55 dpchou Exp $
+ * $Id: CheckOption.java,v 1.4 2010/02/12 18:27:13 hkolwalka Exp $
  */
 package org.eclipse.datatools.modelbase.dbdefinition;
 
@@ -162,7 +162,7 @@ public final class CheckOption extends AbstractEnumerator {
 			case CASCADE: return CASCADE_LITERAL;
 			case LOCAL: return LOCAL_LITERAL;
 		}
-		return null;	
+		return null;
 	}
 
 	/**

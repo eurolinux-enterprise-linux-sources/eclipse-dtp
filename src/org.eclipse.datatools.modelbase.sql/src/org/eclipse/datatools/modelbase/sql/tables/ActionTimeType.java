@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ActionTimeType.java,v 1.3 2006/09/07 00:19:49 dpchou Exp $
+ * $Id: ActionTimeType.java,v 1.4 2010/02/16 06:50:52 hkolwalka Exp $
  */
 package org.eclipse.datatools.modelbase.sql.tables;
 
@@ -165,7 +165,7 @@ public final class ActionTimeType extends AbstractEnumerator {
 			case BEFORE: return BEFORE_LITERAL;
 			case INSTEADOF: return INSTEADOF_LITERAL;
 		}
-		return null;	
+		return null;
 	}
 
 	/**

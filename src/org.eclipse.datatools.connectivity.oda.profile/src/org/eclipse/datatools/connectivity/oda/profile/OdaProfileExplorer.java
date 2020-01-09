@@ -1,6 +1,6 @@
 /*
  *************************************************************************
- * Copyright (c) 2005, 2009 Actuate Corporation.
+ * Copyright (c) 2005, 2010 Actuate Corporation.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,9 +16,9 @@ package org.eclipse.datatools.connectivity.oda.profile;
 
 import java.io.File;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.TreeMap;
 import java.util.logging.Logger;
 
 import org.eclipse.datatools.connectivity.IConnectionProfile;
@@ -45,7 +45,7 @@ public class OdaProfileExplorer
     private static final String sm_className = OdaProfileExplorer.class.getName();
     private static Logger sm_logger;
 
-    private Map m_loadedProfilesByFile;
+    private Map<FileKey, IConnectionProfile[]> m_loadedProfilesByFile;
     private File m_defaultProfileStoreFile;
     
     /**
@@ -72,7 +72,11 @@ public class OdaProfileExplorer
     {
         synchronized( OdaProfileExplorer.class )
         {
-            sm_instance = null;
+            if( sm_instance != null )
+            {
+                sm_instance.refresh();
+                sm_instance = null;
+            }
             sm_logger = null;
         }
     }
@@ -111,14 +115,14 @@ public class OdaProfileExplorer
         m_loadedProfilesByFile.clear();
     }
 
-    private Map getLoadedProfilesMap()
+    private Map<FileKey, IConnectionProfile[]> getLoadedProfilesMap()
     {
         if( m_loadedProfilesByFile == null )
         {
             synchronized( this )
             {
                 if( m_loadedProfilesByFile == null )
-                    m_loadedProfilesByFile = Collections.synchronizedMap( new HashMap() );
+                    m_loadedProfilesByFile = Collections.synchronizedMap( new TreeMap<FileKey, IConnectionProfile[]>() );
             }
         }
         return m_loadedProfilesByFile;
@@ -313,17 +317,18 @@ public class OdaProfileExplorer
     private IConnectionProfile[] addToCacheByFile( File storageFile, IConnectionProfile[] profilesInFile )
     {
         IConnectionProfile[] cachedProfiles;
-        Map loadedProfilesMap = getLoadedProfilesMap();
+        Map<FileKey, IConnectionProfile[]> loadedProfilesMap = getLoadedProfilesMap();
+        FileKey storageFileKey = new FileKey(storageFile);
         synchronized( loadedProfilesMap )
         {
             // in case another thread has added to the same key in between this checking, use
             // the currently cached value
-            cachedProfiles = (IConnectionProfile[]) loadedProfilesMap.get( storageFile );
+            cachedProfiles = (IConnectionProfile[]) loadedProfilesMap.get( storageFileKey );
             if( cachedProfiles == null )
             {                                   
                 // save the specified profiles in cached collection
                 cachedProfiles = profilesInFile;
-                loadedProfilesMap.put( storageFile, cachedProfiles );
+                loadedProfilesMap.put( storageFileKey, cachedProfiles );
             }
         }
         return cachedProfiles;
@@ -331,9 +336,49 @@ public class OdaProfileExplorer
 
     private IConnectionProfile[] getLoadedProfiles( File storageFile ) 
     {
-        return (IConnectionProfile[]) getLoadedProfilesMap().get( storageFile );
+        return (IConnectionProfile[]) getLoadedProfilesMap().get( new FileKey(storageFile) );
     }
 
+    /*
+     * For use as a key in the Map of profile store File and its corresponding 
+     * loaded profile instances.  
+     * The File key is comparable based on its file path.
+     * @since 3.2.3 (DTP 1.8)
+     */
+    class FileKey implements Comparable<FileKey>
+    {
+        private File m_file;
+        
+        FileKey( File aFile )
+        {
+            m_file = aFile;
+        }
+
+        /* (non-Javadoc)
+         * @see java.lang.Object#equals(java.lang.Object)
+         */
+        @Override
+        public boolean equals( Object obj )
+        {
+            if( ! (obj instanceof FileKey ))
+                return false;
+    
+            return this.compareTo( (FileKey)obj ) == 0;
+        }
+
+        public int compareTo( FileKey obj )
+        {
+            if( this == obj || m_file == obj.getFile() )
+                return 0;
+            return m_file.compareTo( obj.getFile() );
+        }
+        
+        private File getFile()
+        {
+            return m_file;
+        }
+    }
+    
     /*
      * Adds given profile instance's identifier to the given collection.
      */
@@ -475,26 +520,38 @@ public class OdaProfileExplorer
      * in the specified connection properties.
      * The profile store file object may be provided in the given context,
      * or its file path is specified in the connection properties.
+     * <br>This method delegates to the default property provider to get the external profile
+     * store reference from the specified properties and application context.  
+     * Clients with custom IPropertyProvider implementation should obtain own profile reference, 
+     * for use as arguments to {@link #getProfileByName(String, File)}.
      * @param dataSourceDesignProps connection properties specified in a data source design
      * @param appContext      an application context Map passed thru to a connection,
-     *                        and which contains 
-     *                        the IPropertyProvider.ODA_CONN_PROP_CONTEXT key
-     *                        and a corresponding connection property context object as value.
+     *                        and which may contain the IPropertyProvider.ODA_CONN_PROP_CONTEXT key
+     *                        and corresponding connection property context object as value.
+     *                        If no such nested context is found, this application context Map is used
+     *                        as the connection property context.
      *                        Optional; may be null.
      * @return  the matching profile instance, or null if not found
      * @since DTP 1.6
+     * @see #getProfileByName(String, File)
      */
     public IConnectionProfile getProfileByName( 
             Properties dataSourceDesignProps, Object appContext )
     {
+        // use the nested context for a profile store File object, if exists
         Object connPropContext = null;
         if( appContext != null && appContext instanceof Map )
-        {
-            connPropContext = ( (Map) appContext ).get( IPropertyProvider.ODA_CONN_PROP_CONTEXT );
-        }
+            connPropContext = ((Map) appContext).get( IPropertyProvider.ODA_CONN_PROP_CONTEXT );
+        if( connPropContext == null )
+            connPropContext = appContext;
         
+        // delegates to the default property provider to get the profile reference; 
+        // re-use previously loaded profiles, if exists; client may override default re-use behavior 
+        // by explicitly calling #refresh() earlier, or trigger the default property provider to refresh 
+        // by setting the IPropertyProvider.ODA_RELOAD_PROFILE_STORE key entry in the 
+        // connection property context
         ProfilePropertyProviderImpl profileProvider = new ProfilePropertyProviderImpl();
-        profileProvider.setRefreshProfileStore( false  );  // client can call refresh() directly if needed
+        profileProvider.setRefreshProfileStore( false );
         return createOdaWrapper( 
                 profileProvider.getConnectionProfile( dataSourceDesignProps, connPropContext ));       
     }

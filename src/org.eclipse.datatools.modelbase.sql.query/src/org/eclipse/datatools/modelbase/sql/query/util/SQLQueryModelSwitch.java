@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: SQLQueryModelSwitch.java,v 1.4 2008/07/07 19:53:17 bpayton Exp $
+ * $Id: SQLQueryModelSwitch.java,v 1.6 2010/04/29 06:06:20 bpayton Exp $
  */
 package org.eclipse.datatools.modelbase.sql.query.util;
 
@@ -21,6 +21,7 @@ import org.eclipse.datatools.modelbase.sql.expressions.ValueExpression;
 
 import org.eclipse.datatools.modelbase.sql.schema.SQLObject;
 
+import org.eclipse.datatools.modelbase.sql.statements.SQLControlStatement;
 import org.eclipse.datatools.modelbase.sql.statements.SQLDataChangeStatement;
 import org.eclipse.datatools.modelbase.sql.statements.SQLDataStatement;
 import org.eclipse.datatools.modelbase.sql.statements.SQLStatement;
@@ -1100,6 +1101,110 @@ public class SQLQueryModelSwitch {
                 if (result == null) result = caseSQLObject(valueExpressionRow);
                 if (result == null) result = caseENamedElement(valueExpressionRow);
                 if (result == null) result = caseEModelElement(valueExpressionRow);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case SQLQueryModelPackage.MERGE_TARGET_TABLE: {
+                MergeTargetTable mergeTargetTable = (MergeTargetTable)theEObject;
+                Object result = caseMergeTargetTable(mergeTargetTable);
+                if (result == null) result = caseSQLQueryObject(mergeTargetTable);
+                if (result == null) result = caseSQLObject(mergeTargetTable);
+                if (result == null) result = caseENamedElement(mergeTargetTable);
+                if (result == null) result = caseEModelElement(mergeTargetTable);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case SQLQueryModelPackage.MERGE_SOURCE_TABLE: {
+                MergeSourceTable mergeSourceTable = (MergeSourceTable)theEObject;
+                Object result = caseMergeSourceTable(mergeSourceTable);
+                if (result == null) result = caseSQLQueryObject(mergeSourceTable);
+                if (result == null) result = caseSQLObject(mergeSourceTable);
+                if (result == null) result = caseENamedElement(mergeSourceTable);
+                if (result == null) result = caseEModelElement(mergeSourceTable);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case SQLQueryModelPackage.MERGE_ON_CONDITION: {
+                MergeOnCondition mergeOnCondition = (MergeOnCondition)theEObject;
+                Object result = caseMergeOnCondition(mergeOnCondition);
+                if (result == null) result = caseSQLQueryObject(mergeOnCondition);
+                if (result == null) result = caseSQLObject(mergeOnCondition);
+                if (result == null) result = caseENamedElement(mergeOnCondition);
+                if (result == null) result = caseEModelElement(mergeOnCondition);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case SQLQueryModelPackage.MERGE_UPDATE_SPECIFICATION: {
+                MergeUpdateSpecification mergeUpdateSpecification = (MergeUpdateSpecification)theEObject;
+                Object result = caseMergeUpdateSpecification(mergeUpdateSpecification);
+                if (result == null) result = caseMergeOperationSpecification(mergeUpdateSpecification);
+                if (result == null) result = caseSQLQueryObject(mergeUpdateSpecification);
+                if (result == null) result = caseSQLObject(mergeUpdateSpecification);
+                if (result == null) result = caseENamedElement(mergeUpdateSpecification);
+                if (result == null) result = caseEModelElement(mergeUpdateSpecification);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case SQLQueryModelPackage.MERGE_INSERT_SPECIFICATION: {
+                MergeInsertSpecification mergeInsertSpecification = (MergeInsertSpecification)theEObject;
+                Object result = caseMergeInsertSpecification(mergeInsertSpecification);
+                if (result == null) result = caseMergeOperationSpecification(mergeInsertSpecification);
+                if (result == null) result = caseSQLQueryObject(mergeInsertSpecification);
+                if (result == null) result = caseSQLObject(mergeInsertSpecification);
+                if (result == null) result = caseENamedElement(mergeInsertSpecification);
+                if (result == null) result = caseEModelElement(mergeInsertSpecification);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case SQLQueryModelPackage.MERGE_OPERATION_SPECIFICATION: {
+                MergeOperationSpecification mergeOperationSpecification = (MergeOperationSpecification)theEObject;
+                Object result = caseMergeOperationSpecification(mergeOperationSpecification);
+                if (result == null) result = caseSQLQueryObject(mergeOperationSpecification);
+                if (result == null) result = caseSQLObject(mergeOperationSpecification);
+                if (result == null) result = caseENamedElement(mergeOperationSpecification);
+                if (result == null) result = caseEModelElement(mergeOperationSpecification);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case SQLQueryModelPackage.UPDATE_OF_COLUMN: {
+                UpdateOfColumn updateOfColumn = (UpdateOfColumn)theEObject;
+                Object result = caseUpdateOfColumn(updateOfColumn);
+                if (result == null) result = caseSQLQueryObject(updateOfColumn);
+                if (result == null) result = caseSQLObject(updateOfColumn);
+                if (result == null) result = caseENamedElement(updateOfColumn);
+                if (result == null) result = caseEModelElement(updateOfColumn);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case SQLQueryModelPackage.UPDATABILITY_EXPRESSION: {
+                UpdatabilityExpression updatabilityExpression = (UpdatabilityExpression)theEObject;
+                Object result = caseUpdatabilityExpression(updatabilityExpression);
+                if (result == null) result = caseSQLQueryObject(updatabilityExpression);
+                if (result == null) result = caseSQLObject(updatabilityExpression);
+                if (result == null) result = caseENamedElement(updatabilityExpression);
+                if (result == null) result = caseEModelElement(updatabilityExpression);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case SQLQueryModelPackage.CALL_STATEMENT: {
+                CallStatement callStatement = (CallStatement)theEObject;
+                Object result = caseCallStatement(callStatement);
+                if (result == null) result = caseSQLQueryObject(callStatement);
+                if (result == null) result = caseSQLControlStatement(callStatement);
+                if (result == null) result = caseSQLObject(callStatement);
+                if (result == null) result = caseSQLStatement(callStatement);
+                if (result == null) result = caseENamedElement(callStatement);
+                if (result == null) result = caseEModelElement(callStatement);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case SQLQueryModelPackage.PROCEDURE_REFERENCE: {
+                ProcedureReference procedureReference = (ProcedureReference)theEObject;
+                Object result = caseProcedureReference(procedureReference);
+                if (result == null) result = caseSQLQueryObject(procedureReference);
+                if (result == null) result = caseSQLObject(procedureReference);
+                if (result == null) result = caseENamedElement(procedureReference);
+                if (result == null) result = caseEModelElement(procedureReference);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -2368,6 +2473,156 @@ public class SQLQueryModelSwitch {
     }
 
     /**
+     * Returns the result of interpreting the object as an instance of '<em>Merge Target Table</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Merge Target Table</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseMergeTargetTable(MergeTargetTable object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Merge Source Table</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Merge Source Table</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseMergeSourceTable(MergeSourceTable object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Merge On Condition</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Merge On Condition</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseMergeOnCondition(MergeOnCondition object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Merge Update Specification</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Merge Update Specification</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseMergeUpdateSpecification(MergeUpdateSpecification object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Merge Insert Specification</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Merge Insert Specification</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseMergeInsertSpecification(MergeInsertSpecification object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Merge Operation Specification</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Merge Operation Specification</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseMergeOperationSpecification(MergeOperationSpecification object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Update Of Column</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Update Of Column</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseUpdateOfColumn(UpdateOfColumn object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Updatability Expression</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Updatability Expression</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseUpdatabilityExpression(UpdatabilityExpression object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Call Statement</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Call Statement</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseCallStatement(CallStatement object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Procedure Reference</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Procedure Reference</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseProcedureReference(ProcedureReference object) {
+        return null;
+    }
+
+    /**
      * Returns the result of interpreting the object as an instance of '<em>EModel Element</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
@@ -2503,6 +2758,21 @@ public class SQLQueryModelSwitch {
     }
 
 	/**
+     * Returns the result of interpreting the object as an instance of '<em>SQL Control Statement</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>SQL Control Statement</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseSQLControlStatement(SQLControlStatement object) {
+        return null;
+    }
+
+    /**
      * Returns the result of interpreting the object as an instance of '<em>EObject</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;

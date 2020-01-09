@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2004-2005, 2008 Sybase, Inc.
+ * Copyright (c) 2004, 2010 Sybase, Inc. and others
  * 
  * All rights reserved. This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License v1.0 which
@@ -37,6 +37,8 @@ import org.eclipse.jface.viewers.DecorationOverlayIcon;
 import org.eclipse.jface.viewers.IDecoration;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.accessibility.AccessibleAdapter;
+import org.eclipse.swt.accessibility.AccessibleEvent;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionEvent;
@@ -87,6 +89,7 @@ public class DriverListCombo {
 	private ListenerList changeListeners;
 
 	private Image mDriverImage = null;
+	private Image mDriverWithPlusImage = null;
 	private Image mChangeImage = null;
 
 	private static ImageDescriptor PLUS = null;
@@ -240,13 +243,11 @@ public class DriverListCombo {
 		makeImages();
 		this.mPanel = new Composite(parent, SWT.NULL);
 
-		GridData vdata = new GridData(GridData.FILL_HORIZONTAL
-				| GridData.VERTICAL_ALIGN_FILL);
-		vdata.horizontalSpan = 2;
+		GridData vdata = new GridData(GridData.FILL_HORIZONTAL);
 		this.mPanel.setLayoutData(vdata);
 
 		GridLayout gridLayout = new GridLayout();
-		gridLayout.numColumns = 4;
+		gridLayout.numColumns = 3;
 		gridLayout.marginWidth = 0;
 		gridLayout.marginHeight = 0;
 		this.mPanel.setLayout(gridLayout);
@@ -254,7 +255,7 @@ public class DriverListCombo {
 		if (this.mShowLabel) {
 			this.mLabel = new Label(this.mPanel, SWT.NONE);
 			GridData ldata = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
-			ldata.horizontalSpan = 2;
+			ldata.horizontalSpan = 1;
 			this.mLabel.setLayoutData(ldata);
 			this.mLabel.setText(this.mLabelText);
 		}
@@ -262,8 +263,8 @@ public class DriverListCombo {
 		this.mComboList = new Combo(this.mPanel, SWT.DROP_DOWN | SWT.BORDER
 				| SWT.READ_ONLY);
 		this.mComboList.setEnabled(!isReadOnly);
-		GridData cdata = new GridData(GridData.HORIZONTAL_ALIGN_FILL
-				| GridData.GRAB_HORIZONTAL);
+		GridData cdata = new GridData(GridData.FILL_HORIZONTAL | GridData.GRAB_HORIZONTAL);
+		cdata.widthHint = 20;
 		this.mComboList.setLayoutData(cdata);
 
 		ComboSelectionListener listener = new ComboSelectionListener(this);
@@ -277,13 +278,19 @@ public class DriverListCombo {
 		if (mShowNewDriverButton) {
 		    final ToolBar toolBar = new ToolBar(tempComposite/*this.mPanel*/, SWT.FLAT);
 		    /*final ToolItem*/ item1 = new ToolItem(toolBar, SWT.PUSH);
-		    DecorationOverlayIcon icon = new DecorationOverlayIcon(mDriverImage, PLUS, IDecoration.TOP_RIGHT);
-		    item1.setImage(icon.createImage());
+		    item1.setImage(mDriverWithPlusImage);
 		    item1.setToolTipText(DriverMgmtMessages.getString("DriverListCombo.button.newdriver")); //$NON-NLS-1$
 			item1
 				.addSelectionListener(new NewButtonSelectionChangedListener(
 					this));
 			item1.setEnabled(!isReadOnly);
+			toolBar.getAccessible().addAccessibleListener(
+					new AccessibleAdapter() {			
+						public void getName(AccessibleEvent e) {
+							e.result = DriverMgmtMessages.getString("DriverListCombo.button.newdriver"); //$NON-NLS-1$
+						}
+					}
+			);		
 		}
 		
 		if (mShowGenericDriverButton) {
@@ -295,6 +302,13 @@ public class DriverListCombo {
 				addSelectionListener(new NewGenericSelectionChangedListener(
 						this));
 			item2.setEnabled(!isReadOnly);
+			toolBar.getAccessible().addAccessibleListener(
+					new AccessibleAdapter() {			
+						public void getName(AccessibleEvent e) {
+							e.result = DriverMgmtMessages.getString("DriverListCombo.button.generic"); //$NON-NLS-1$
+						}
+					}
+			);		
 		}
 		
 		if (mShowEditButton) {
@@ -305,6 +319,13 @@ public class DriverListCombo {
 			mTBButtonEdit.
 				addSelectionListener(new EditButtonSelectionChangedListener(
 					this));
+			toolBar.getAccessible().addAccessibleListener(
+					new AccessibleAdapter() {			
+						public void getName(AccessibleEvent e) {
+							e.result = DriverMgmtMessages.getString("DriverListCombo.EditDriverButton.tooltip"); //$NON-NLS-1$
+						}
+					}
+			);		
 		}
 
 		if (mShowMenu) {
@@ -1057,10 +1078,15 @@ public class DriverListCombo {
 		}
 	}
 
-	protected void finalize() throws Throwable {
-		this.mDriverImage.dispose();
-		this.mChangeImage.dispose();
-		super.finalize();
+	public void dispose() {
+		if (this.mDriverImage != null)
+			this.mDriverImage.dispose();
+		if (this.mDriverWithPlusImage != null)
+			this.mDriverWithPlusImage.dispose();
+		if (this.mChangeImage != null)
+			this.mChangeImage.dispose();
+		if (this.mArrowImage != null)
+			this.mArrowImage.dispose();
 	}
 	
 	private void makeImages() {
@@ -1070,7 +1096,8 @@ public class DriverListCombo {
 			.imageDescriptorFromPlugin(ConnectivityUIPlugin.getDefault()
 				.getBundle().getSymbolicName(), "icons/add_obj2.gif"); //$NON-NLS-1$
 
-		PLUS.createImage();
+		DecorationOverlayIcon icon = new DecorationOverlayIcon(mDriverImage, PLUS, IDecoration.TOP_RIGHT);
+		mDriverWithPlusImage = icon.createImage();
 
 		ARROW = AbstractUIPlugin
 			.imageDescriptorFromPlugin(ConnectivityUIPlugin.getDefault()
@@ -1083,9 +1110,6 @@ public class DriverListCombo {
 					.getBundle().getSymbolicName(), "icons/change_obj.gif"); //$NON-NLS-1$
 		
 		mChangeImage = CHANGE.createImage();
-
-
-		PLUS.createImage();
 	}
 
 	private IPropertySet duplicatePropertySet ( IPropertySet pset ) {

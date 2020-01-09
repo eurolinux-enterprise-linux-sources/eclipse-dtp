@@ -130,6 +130,15 @@ public interface SQLDataTypesPackage extends EPackage {
 	int DATA_TYPE__COMMENTS = SQLSchemaPackage.SQL_OBJECT__COMMENTS;
 
 	/**
+	 * The feature id for the '<em><b>Extensions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_TYPE__EXTENSIONS = SQLSchemaPackage.SQL_OBJECT__EXTENSIONS;
+
+	/**
 	 * The feature id for the '<em><b>Privileges</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -210,6 +219,15 @@ public interface SQLDataTypesPackage extends EPackage {
 	 * @ordered
 	 */
 	int USER_DEFINED_TYPE__COMMENTS = DATA_TYPE__COMMENTS;
+
+	/**
+	 * The feature id for the '<em><b>Extensions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int USER_DEFINED_TYPE__EXTENSIONS = DATA_TYPE__EXTENSIONS;
 
 	/**
 	 * The feature id for the '<em><b>Privileges</b></em>' reference list.
@@ -312,6 +330,15 @@ public interface SQLDataTypesPackage extends EPackage {
 	int SQL_DATA_TYPE__COMMENTS = DATA_TYPE__COMMENTS;
 
 	/**
+	 * The feature id for the '<em><b>Extensions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SQL_DATA_TYPE__EXTENSIONS = DATA_TYPE__EXTENSIONS;
+
+	/**
 	 * The feature id for the '<em><b>Privileges</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -394,6 +421,15 @@ public interface SQLDataTypesPackage extends EPackage {
 	int PREDEFINED_DATA_TYPE__COMMENTS = SQL_DATA_TYPE__COMMENTS;
 
 	/**
+	 * The feature id for the '<em><b>Extensions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PREDEFINED_DATA_TYPE__EXTENSIONS = SQL_DATA_TYPE__EXTENSIONS;
+
+	/**
 	 * The feature id for the '<em><b>Privileges</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -437,7 +473,7 @@ public interface SQLDataTypesPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONSTRUCTED_DATA_TYPE__EANNOTATIONS = SQL_DATA_TYPE__EANNOTATIONS;
+	int CONSTRUCTED_DATA_TYPE__EANNOTATIONS = DATA_TYPE__EANNOTATIONS;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -446,7 +482,7 @@ public interface SQLDataTypesPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONSTRUCTED_DATA_TYPE__NAME = SQL_DATA_TYPE__NAME;
+	int CONSTRUCTED_DATA_TYPE__NAME = DATA_TYPE__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Dependencies</b></em>' containment reference list.
@@ -455,7 +491,7 @@ public interface SQLDataTypesPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONSTRUCTED_DATA_TYPE__DEPENDENCIES = SQL_DATA_TYPE__DEPENDENCIES;
+	int CONSTRUCTED_DATA_TYPE__DEPENDENCIES = DATA_TYPE__DEPENDENCIES;
 
 	/**
 	 * The feature id for the '<em><b>Description</b></em>' attribute.
@@ -464,7 +500,7 @@ public interface SQLDataTypesPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONSTRUCTED_DATA_TYPE__DESCRIPTION = SQL_DATA_TYPE__DESCRIPTION;
+	int CONSTRUCTED_DATA_TYPE__DESCRIPTION = DATA_TYPE__DESCRIPTION;
 
 	/**
 	 * The feature id for the '<em><b>Label</b></em>' attribute.
@@ -473,7 +509,7 @@ public interface SQLDataTypesPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONSTRUCTED_DATA_TYPE__LABEL = SQL_DATA_TYPE__LABEL;
+	int CONSTRUCTED_DATA_TYPE__LABEL = DATA_TYPE__LABEL;
 
 	/**
 	 * The feature id for the '<em><b>Comments</b></em>' reference list.
@@ -482,7 +518,16 @@ public interface SQLDataTypesPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONSTRUCTED_DATA_TYPE__COMMENTS = SQL_DATA_TYPE__COMMENTS;
+	int CONSTRUCTED_DATA_TYPE__COMMENTS = DATA_TYPE__COMMENTS;
+
+	/**
+	 * The feature id for the '<em><b>Extensions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONSTRUCTED_DATA_TYPE__EXTENSIONS = DATA_TYPE__EXTENSIONS;
 
 	/**
 	 * The feature id for the '<em><b>Privileges</b></em>' reference list.
@@ -491,7 +536,7 @@ public interface SQLDataTypesPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONSTRUCTED_DATA_TYPE__PRIVILEGES = SQL_DATA_TYPE__PRIVILEGES;
+	int CONSTRUCTED_DATA_TYPE__PRIVILEGES = DATA_TYPE__PRIVILEGES;
 
 	/**
 	 * The number of structural features of the '<em>Constructed Data Type</em>' class.
@@ -500,7 +545,7 @@ public interface SQLDataTypesPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONSTRUCTED_DATA_TYPE_FEATURE_COUNT = SQL_DATA_TYPE_FEATURE_COUNT + 0;
+	int CONSTRUCTED_DATA_TYPE_FEATURE_COUNT = DATA_TYPE_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.datatools.modelbase.sql.datatypes.impl.CollectionDataTypeImpl <em>Collection Data Type</em>}' class.
@@ -567,6 +612,15 @@ public interface SQLDataTypesPackage extends EPackage {
 	int COLLECTION_DATA_TYPE__COMMENTS = CONSTRUCTED_DATA_TYPE__COMMENTS;
 
 	/**
+	 * The feature id for the '<em><b>Extensions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COLLECTION_DATA_TYPE__EXTENSIONS = CONSTRUCTED_DATA_TYPE__EXTENSIONS;
+
+	/**
 	 * The feature id for the '<em><b>Privileges</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -576,13 +630,13 @@ public interface SQLDataTypesPackage extends EPackage {
 	int COLLECTION_DATA_TYPE__PRIVILEGES = CONSTRUCTED_DATA_TYPE__PRIVILEGES;
 
 	/**
-	 * The feature id for the '<em><b>Element</b></em>' reference list.
+	 * The feature id for the '<em><b>Element Type</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COLLECTION_DATA_TYPE__ELEMENT = CONSTRUCTED_DATA_TYPE_FEATURE_COUNT + 0;
+	int COLLECTION_DATA_TYPE__ELEMENT_TYPE = CONSTRUCTED_DATA_TYPE_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Collection Data Type</em>' class.
@@ -656,6 +710,15 @@ public interface SQLDataTypesPackage extends EPackage {
 	 * @ordered
 	 */
 	int NUMERICAL_DATA_TYPE__COMMENTS = PREDEFINED_DATA_TYPE__COMMENTS;
+
+	/**
+	 * The feature id for the '<em><b>Extensions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NUMERICAL_DATA_TYPE__EXTENSIONS = PREDEFINED_DATA_TYPE__EXTENSIONS;
 
 	/**
 	 * The feature id for the '<em><b>Privileges</b></em>' reference list.
@@ -756,6 +819,15 @@ public interface SQLDataTypesPackage extends EPackage {
 	 * @ordered
 	 */
 	int CHARACTER_STRING_DATA_TYPE__COMMENTS = PREDEFINED_DATA_TYPE__COMMENTS;
+
+	/**
+	 * The feature id for the '<em><b>Extensions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CHARACTER_STRING_DATA_TYPE__EXTENSIONS = PREDEFINED_DATA_TYPE__EXTENSIONS;
 
 	/**
 	 * The feature id for the '<em><b>Privileges</b></em>' reference list.
@@ -894,6 +966,15 @@ public interface SQLDataTypesPackage extends EPackage {
 	int ROW_DATA_TYPE__COMMENTS = CONSTRUCTED_DATA_TYPE__COMMENTS;
 
 	/**
+	 * The feature id for the '<em><b>Extensions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ROW_DATA_TYPE__EXTENSIONS = CONSTRUCTED_DATA_TYPE__EXTENSIONS;
+
+	/**
 	 * The feature id for the '<em><b>Privileges</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -985,6 +1066,15 @@ public interface SQLDataTypesPackage extends EPackage {
 	int ARRAY_DATA_TYPE__COMMENTS = COLLECTION_DATA_TYPE__COMMENTS;
 
 	/**
+	 * The feature id for the '<em><b>Extensions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ARRAY_DATA_TYPE__EXTENSIONS = COLLECTION_DATA_TYPE__EXTENSIONS;
+
+	/**
 	 * The feature id for the '<em><b>Privileges</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -994,13 +1084,13 @@ public interface SQLDataTypesPackage extends EPackage {
 	int ARRAY_DATA_TYPE__PRIVILEGES = COLLECTION_DATA_TYPE__PRIVILEGES;
 
 	/**
-	 * The feature id for the '<em><b>Element</b></em>' reference list.
+	 * The feature id for the '<em><b>Element Type</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ARRAY_DATA_TYPE__ELEMENT = COLLECTION_DATA_TYPE__ELEMENT;
+	int ARRAY_DATA_TYPE__ELEMENT_TYPE = COLLECTION_DATA_TYPE__ELEMENT_TYPE;
 
 	/**
 	 * The feature id for the '<em><b>Max Cardinality</b></em>' attribute.
@@ -1085,6 +1175,15 @@ public interface SQLDataTypesPackage extends EPackage {
 	int MULTISET_DATA_TYPE__COMMENTS = COLLECTION_DATA_TYPE__COMMENTS;
 
 	/**
+	 * The feature id for the '<em><b>Extensions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MULTISET_DATA_TYPE__EXTENSIONS = COLLECTION_DATA_TYPE__EXTENSIONS;
+
+	/**
 	 * The feature id for the '<em><b>Privileges</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1094,13 +1193,13 @@ public interface SQLDataTypesPackage extends EPackage {
 	int MULTISET_DATA_TYPE__PRIVILEGES = COLLECTION_DATA_TYPE__PRIVILEGES;
 
 	/**
-	 * The feature id for the '<em><b>Element</b></em>' reference list.
+	 * The feature id for the '<em><b>Element Type</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MULTISET_DATA_TYPE__ELEMENT = COLLECTION_DATA_TYPE__ELEMENT;
+	int MULTISET_DATA_TYPE__ELEMENT_TYPE = COLLECTION_DATA_TYPE__ELEMENT_TYPE;
 
 	/**
 	 * The number of structural features of the '<em>Multiset Data Type</em>' class.
@@ -1174,6 +1273,15 @@ public interface SQLDataTypesPackage extends EPackage {
 	 * @ordered
 	 */
 	int BOOLEAN_DATA_TYPE__COMMENTS = PREDEFINED_DATA_TYPE__COMMENTS;
+
+	/**
+	 * The feature id for the '<em><b>Extensions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BOOLEAN_DATA_TYPE__EXTENSIONS = PREDEFINED_DATA_TYPE__EXTENSIONS;
 
 	/**
 	 * The feature id for the '<em><b>Privileges</b></em>' reference list.
@@ -1265,6 +1373,15 @@ public interface SQLDataTypesPackage extends EPackage {
 	 * @ordered
 	 */
 	int INTERVAL_DATA_TYPE__COMMENTS = PREDEFINED_DATA_TYPE__COMMENTS;
+
+	/**
+	 * The feature id for the '<em><b>Extensions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTERVAL_DATA_TYPE__EXTENSIONS = PREDEFINED_DATA_TYPE__EXTENSIONS;
 
 	/**
 	 * The feature id for the '<em><b>Privileges</b></em>' reference list.
@@ -1403,6 +1520,15 @@ public interface SQLDataTypesPackage extends EPackage {
 	int BINARY_STRING_DATA_TYPE__COMMENTS = PREDEFINED_DATA_TYPE__COMMENTS;
 
 	/**
+	 * The feature id for the '<em><b>Extensions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BINARY_STRING_DATA_TYPE__EXTENSIONS = PREDEFINED_DATA_TYPE__EXTENSIONS;
+
+	/**
 	 * The feature id for the '<em><b>Privileges</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1503,6 +1629,15 @@ public interface SQLDataTypesPackage extends EPackage {
 	int CHARACTER_SET__COMMENTS = SQLSchemaPackage.SQL_OBJECT__COMMENTS;
 
 	/**
+	 * The feature id for the '<em><b>Extensions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CHARACTER_SET__EXTENSIONS = SQLSchemaPackage.SQL_OBJECT__EXTENSIONS;
+
+	/**
 	 * The feature id for the '<em><b>Privileges</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1539,13 +1674,22 @@ public interface SQLDataTypesPackage extends EPackage {
 	int CHARACTER_SET__ENCODING = SQLSchemaPackage.SQL_OBJECT_FEATURE_COUNT + 2;
 
 	/**
+	 * The feature id for the '<em><b>Character String Data Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CHARACTER_SET__CHARACTER_STRING_DATA_TYPE = SQLSchemaPackage.SQL_OBJECT_FEATURE_COUNT + 3;
+
+	/**
 	 * The feature id for the '<em><b>Schema</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CHARACTER_SET__SCHEMA = SQLSchemaPackage.SQL_OBJECT_FEATURE_COUNT + 3;
+	int CHARACTER_SET__SCHEMA = SQLSchemaPackage.SQL_OBJECT_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of structural features of the '<em>Character Set</em>' class.
@@ -1554,7 +1698,7 @@ public interface SQLDataTypesPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CHARACTER_SET_FEATURE_COUNT = SQLSchemaPackage.SQL_OBJECT_FEATURE_COUNT + 4;
+	int CHARACTER_SET_FEATURE_COUNT = SQLSchemaPackage.SQL_OBJECT_FEATURE_COUNT + 5;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.datatools.modelbase.sql.datatypes.impl.TimeDataTypeImpl <em>Time Data Type</em>}' class.
@@ -1619,6 +1763,15 @@ public interface SQLDataTypesPackage extends EPackage {
 	 * @ordered
 	 */
 	int TIME_DATA_TYPE__COMMENTS = PREDEFINED_DATA_TYPE__COMMENTS;
+
+	/**
+	 * The feature id for the '<em><b>Extensions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TIME_DATA_TYPE__EXTENSIONS = PREDEFINED_DATA_TYPE__EXTENSIONS;
 
 	/**
 	 * The feature id for the '<em><b>Privileges</b></em>' reference list.
@@ -1730,6 +1883,15 @@ public interface SQLDataTypesPackage extends EPackage {
 	int DISTINCT_USER_DEFINED_TYPE__COMMENTS = USER_DEFINED_TYPE__COMMENTS;
 
 	/**
+	 * The feature id for the '<em><b>Extensions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DISTINCT_USER_DEFINED_TYPE__EXTENSIONS = USER_DEFINED_TYPE__EXTENSIONS;
+
+	/**
 	 * The feature id for the '<em><b>Privileges</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1837,6 +1999,15 @@ public interface SQLDataTypesPackage extends EPackage {
 	 * @ordered
 	 */
 	int STRUCTURED_USER_DEFINED_TYPE__COMMENTS = USER_DEFINED_TYPE__COMMENTS;
+
+	/**
+	 * The feature id for the '<em><b>Extensions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRUCTURED_USER_DEFINED_TYPE__EXTENSIONS = USER_DEFINED_TYPE__EXTENSIONS;
 
 	/**
 	 * The feature id for the '<em><b>Privileges</b></em>' reference list.
@@ -1993,6 +2164,15 @@ public interface SQLDataTypesPackage extends EPackage {
 	int ATTRIBUTE_DEFINITION__COMMENTS = SQLSchemaPackage.TYPED_ELEMENT__COMMENTS;
 
 	/**
+	 * The feature id for the '<em><b>Extensions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ATTRIBUTE_DEFINITION__EXTENSIONS = SQLSchemaPackage.TYPED_ELEMENT__EXTENSIONS;
+
+	/**
 	 * The feature id for the '<em><b>Privileges</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2120,6 +2300,15 @@ public interface SQLDataTypesPackage extends EPackage {
 	int EXACT_NUMERIC_DATA_TYPE__COMMENTS = NUMERICAL_DATA_TYPE__COMMENTS;
 
 	/**
+	 * The feature id for the '<em><b>Extensions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXACT_NUMERIC_DATA_TYPE__EXTENSIONS = NUMERICAL_DATA_TYPE__EXTENSIONS;
+
+	/**
 	 * The feature id for the '<em><b>Privileges</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2229,6 +2418,15 @@ public interface SQLDataTypesPackage extends EPackage {
 	int FIXED_PRECISION_DATA_TYPE__COMMENTS = EXACT_NUMERIC_DATA_TYPE__COMMENTS;
 
 	/**
+	 * The feature id for the '<em><b>Extensions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FIXED_PRECISION_DATA_TYPE__EXTENSIONS = EXACT_NUMERIC_DATA_TYPE__EXTENSIONS;
+
+	/**
 	 * The feature id for the '<em><b>Privileges</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2336,6 +2534,15 @@ public interface SQLDataTypesPackage extends EPackage {
 	 * @ordered
 	 */
 	int DOMAIN__COMMENTS = DISTINCT_USER_DEFINED_TYPE__COMMENTS;
+
+	/**
+	 * The feature id for the '<em><b>Extensions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DOMAIN__EXTENSIONS = DISTINCT_USER_DEFINED_TYPE__EXTENSIONS;
 
 	/**
 	 * The feature id for the '<em><b>Privileges</b></em>' reference list.
@@ -2465,6 +2672,15 @@ public interface SQLDataTypesPackage extends EPackage {
 	int FIELD__COMMENTS = SQLSchemaPackage.TYPED_ELEMENT__COMMENTS;
 
 	/**
+	 * The feature id for the '<em><b>Extensions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FIELD__EXTENSIONS = SQLSchemaPackage.TYPED_ELEMENT__EXTENSIONS;
+
+	/**
 	 * The feature id for the '<em><b>Privileges</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2583,6 +2799,15 @@ public interface SQLDataTypesPackage extends EPackage {
 	int REFERENCE_DATA_TYPE__COMMENTS = CONSTRUCTED_DATA_TYPE__COMMENTS;
 
 	/**
+	 * The feature id for the '<em><b>Extensions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENCE_DATA_TYPE__EXTENSIONS = CONSTRUCTED_DATA_TYPE__EXTENSIONS;
+
+	/**
 	 * The feature id for the '<em><b>Privileges</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2681,6 +2906,15 @@ public interface SQLDataTypesPackage extends EPackage {
 	 * @ordered
 	 */
 	int DATA_LINK_DATA_TYPE__COMMENTS = PREDEFINED_DATA_TYPE__COMMENTS;
+
+	/**
+	 * The feature id for the '<em><b>Extensions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_LINK_DATA_TYPE__EXTENSIONS = PREDEFINED_DATA_TYPE__EXTENSIONS;
 
 	/**
 	 * The feature id for the '<em><b>Privileges</b></em>' reference list.
@@ -2837,6 +3071,15 @@ public interface SQLDataTypesPackage extends EPackage {
 	int USER_DEFINED_TYPE_ORDERING__COMMENTS = SQLSchemaPackage.SQL_OBJECT__COMMENTS;
 
 	/**
+	 * The feature id for the '<em><b>Extensions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int USER_DEFINED_TYPE_ORDERING__EXTENSIONS = SQLSchemaPackage.SQL_OBJECT__EXTENSIONS;
+
+	/**
 	 * The feature id for the '<em><b>Privileges</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2946,6 +3189,15 @@ public interface SQLDataTypesPackage extends EPackage {
 	int DATE_DATA_TYPE__COMMENTS = PREDEFINED_DATA_TYPE__COMMENTS;
 
 	/**
+	 * The feature id for the '<em><b>Extensions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATE_DATA_TYPE__EXTENSIONS = PREDEFINED_DATA_TYPE__EXTENSIONS;
+
+	/**
 	 * The feature id for the '<em><b>Privileges</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3035,6 +3287,15 @@ public interface SQLDataTypesPackage extends EPackage {
 	 * @ordered
 	 */
 	int APPROXIMATE_NUMERIC_DATA_TYPE__COMMENTS = NUMERICAL_DATA_TYPE__COMMENTS;
+
+	/**
+	 * The feature id for the '<em><b>Extensions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APPROXIMATE_NUMERIC_DATA_TYPE__EXTENSIONS = NUMERICAL_DATA_TYPE__EXTENSIONS;
 
 	/**
 	 * The feature id for the '<em><b>Privileges</b></em>' reference list.
@@ -3135,6 +3396,15 @@ public interface SQLDataTypesPackage extends EPackage {
 	 * @ordered
 	 */
 	int INTEGER_DATA_TYPE__COMMENTS = EXACT_NUMERIC_DATA_TYPE__COMMENTS;
+
+	/**
+	 * The feature id for the '<em><b>Extensions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTEGER_DATA_TYPE__EXTENSIONS = EXACT_NUMERIC_DATA_TYPE__EXTENSIONS;
 
 	/**
 	 * The feature id for the '<em><b>Privileges</b></em>' reference list.
@@ -3246,6 +3516,15 @@ public interface SQLDataTypesPackage extends EPackage {
 	int XML_DATA_TYPE__COMMENTS = PREDEFINED_DATA_TYPE__COMMENTS;
 
 	/**
+	 * The feature id for the '<em><b>Extensions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int XML_DATA_TYPE__EXTENSIONS = PREDEFINED_DATA_TYPE__EXTENSIONS;
+
+	/**
 	 * The feature id for the '<em><b>Privileges</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3273,6 +3552,124 @@ public interface SQLDataTypesPackage extends EPackage {
 	int XML_DATA_TYPE_FEATURE_COUNT = PREDEFINED_DATA_TYPE_FEATURE_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.datatools.modelbase.sql.datatypes.impl.ElementTypeImpl <em>Element Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.datatools.modelbase.sql.datatypes.impl.ElementTypeImpl
+	 * @see org.eclipse.datatools.modelbase.sql.datatypes.impl.SQLDataTypesPackageImpl#getElementType()
+	 * @generated
+	 */
+	int ELEMENT_TYPE = 30;
+
+	/**
+	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ELEMENT_TYPE__EANNOTATIONS = SQLSchemaPackage.TYPED_ELEMENT__EANNOTATIONS;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ELEMENT_TYPE__NAME = SQLSchemaPackage.TYPED_ELEMENT__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Dependencies</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ELEMENT_TYPE__DEPENDENCIES = SQLSchemaPackage.TYPED_ELEMENT__DEPENDENCIES;
+
+	/**
+	 * The feature id for the '<em><b>Description</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ELEMENT_TYPE__DESCRIPTION = SQLSchemaPackage.TYPED_ELEMENT__DESCRIPTION;
+
+	/**
+	 * The feature id for the '<em><b>Label</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ELEMENT_TYPE__LABEL = SQLSchemaPackage.TYPED_ELEMENT__LABEL;
+
+	/**
+	 * The feature id for the '<em><b>Comments</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ELEMENT_TYPE__COMMENTS = SQLSchemaPackage.TYPED_ELEMENT__COMMENTS;
+
+	/**
+	 * The feature id for the '<em><b>Extensions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ELEMENT_TYPE__EXTENSIONS = SQLSchemaPackage.TYPED_ELEMENT__EXTENSIONS;
+
+	/**
+	 * The feature id for the '<em><b>Privileges</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ELEMENT_TYPE__PRIVILEGES = SQLSchemaPackage.TYPED_ELEMENT__PRIVILEGES;
+
+	/**
+	 * The feature id for the '<em><b>Contained Type</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ELEMENT_TYPE__CONTAINED_TYPE = SQLSchemaPackage.TYPED_ELEMENT__CONTAINED_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Referenced Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ELEMENT_TYPE__REFERENCED_TYPE = SQLSchemaPackage.TYPED_ELEMENT__REFERENCED_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Collection Data Type</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ELEMENT_TYPE__COLLECTION_DATA_TYPE = SQLSchemaPackage.TYPED_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Element Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ELEMENT_TYPE_FEATURE_COUNT = SQLSchemaPackage.TYPED_ELEMENT_FEATURE_COUNT + 1;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.datatools.modelbase.sql.datatypes.CoercibilityType <em>Coercibility Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3280,7 +3677,7 @@ public interface SQLDataTypesPackage extends EPackage {
 	 * @see org.eclipse.datatools.modelbase.sql.datatypes.impl.SQLDataTypesPackageImpl#getCoercibilityType()
 	 * @generated
 	 */
-	int COERCIBILITY_TYPE = 30;
+	int COERCIBILITY_TYPE = 31;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.datatools.modelbase.sql.datatypes.IntervalQualifierType <em>Interval Qualifier Type</em>}' enum.
@@ -3290,7 +3687,7 @@ public interface SQLDataTypesPackage extends EPackage {
 	 * @see org.eclipse.datatools.modelbase.sql.datatypes.impl.SQLDataTypesPackageImpl#getIntervalQualifierType()
 	 * @generated
 	 */
-	int INTERVAL_QUALIFIER_TYPE = 31;
+	int INTERVAL_QUALIFIER_TYPE = 32;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.datatools.modelbase.sql.datatypes.OrderingType <em>Ordering Type</em>}' enum.
@@ -3300,7 +3697,7 @@ public interface SQLDataTypesPackage extends EPackage {
 	 * @see org.eclipse.datatools.modelbase.sql.datatypes.impl.SQLDataTypesPackageImpl#getOrderingType()
 	 * @generated
 	 */
-	int ORDERING_TYPE = 32;
+	int ORDERING_TYPE = 33;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.datatools.modelbase.sql.datatypes.OrderingCategoryType <em>Ordering Category Type</em>}' enum.
@@ -3310,7 +3707,7 @@ public interface SQLDataTypesPackage extends EPackage {
 	 * @see org.eclipse.datatools.modelbase.sql.datatypes.impl.SQLDataTypesPackageImpl#getOrderingCategoryType()
 	 * @generated
 	 */
-	int ORDERING_CATEGORY_TYPE = 33;
+	int ORDERING_CATEGORY_TYPE = 34;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.datatools.modelbase.sql.datatypes.PrimitiveType <em>Primitive Type</em>}' enum.
@@ -3320,7 +3717,7 @@ public interface SQLDataTypesPackage extends EPackage {
 	 * @see org.eclipse.datatools.modelbase.sql.datatypes.impl.SQLDataTypesPackageImpl#getPrimitiveType()
 	 * @generated
 	 */
-	int PRIMITIVE_TYPE = 34;
+	int PRIMITIVE_TYPE = 35;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.datatools.modelbase.sql.datatypes.LinkControlOption <em>Link Control Option</em>}' enum.
@@ -3330,7 +3727,7 @@ public interface SQLDataTypesPackage extends EPackage {
 	 * @see org.eclipse.datatools.modelbase.sql.datatypes.impl.SQLDataTypesPackageImpl#getLinkControlOption()
 	 * @generated
 	 */
-	int LINK_CONTROL_OPTION = 35;
+	int LINK_CONTROL_OPTION = 36;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.datatools.modelbase.sql.datatypes.IntegrityControlOption <em>Integrity Control Option</em>}' enum.
@@ -3340,7 +3737,7 @@ public interface SQLDataTypesPackage extends EPackage {
 	 * @see org.eclipse.datatools.modelbase.sql.datatypes.impl.SQLDataTypesPackageImpl#getIntegrityControlOption()
 	 * @generated
 	 */
-	int INTEGRITY_CONTROL_OPTION = 36;
+	int INTEGRITY_CONTROL_OPTION = 37;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.datatools.modelbase.sql.datatypes.ReadPermissionOption <em>Read Permission Option</em>}' enum.
@@ -3350,7 +3747,7 @@ public interface SQLDataTypesPackage extends EPackage {
 	 * @see org.eclipse.datatools.modelbase.sql.datatypes.impl.SQLDataTypesPackageImpl#getReadPermissionOption()
 	 * @generated
 	 */
-	int READ_PERMISSION_OPTION = 37;
+	int READ_PERMISSION_OPTION = 38;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.datatools.modelbase.sql.datatypes.WritePermissionOption <em>Write Permission Option</em>}' enum.
@@ -3360,7 +3757,7 @@ public interface SQLDataTypesPackage extends EPackage {
 	 * @see org.eclipse.datatools.modelbase.sql.datatypes.impl.SQLDataTypesPackageImpl#getWritePermissionOption()
 	 * @generated
 	 */
-	int WRITE_PERMISSION_OPTION = 38;
+	int WRITE_PERMISSION_OPTION = 39;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.datatools.modelbase.sql.datatypes.UnlinkOption <em>Unlink Option</em>}' enum.
@@ -3370,7 +3767,7 @@ public interface SQLDataTypesPackage extends EPackage {
 	 * @see org.eclipse.datatools.modelbase.sql.datatypes.impl.SQLDataTypesPackageImpl#getUnlinkOption()
 	 * @generated
 	 */
-	int UNLINK_OPTION = 39;
+	int UNLINK_OPTION = 40;
 
 
 	/**
@@ -3447,15 +3844,15 @@ public interface SQLDataTypesPackage extends EPackage {
 	EClass getCollectionDataType();
 
 	/**
-	 * Returns the meta object for the reference list '{@link org.eclipse.datatools.modelbase.sql.datatypes.CollectionDataType#getElement <em>Element</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.eclipse.datatools.modelbase.sql.datatypes.CollectionDataType#getElementType <em>Element Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Element</em>'.
-	 * @see org.eclipse.datatools.modelbase.sql.datatypes.CollectionDataType#getElement()
+	 * @return the meta object for the containment reference '<em>Element Type</em>'.
+	 * @see org.eclipse.datatools.modelbase.sql.datatypes.CollectionDataType#getElementType()
 	 * @see #getCollectionDataType()
 	 * @generated
 	 */
-	EReference getCollectionDataType_Element();
+	EReference getCollectionDataType_ElementType();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.datatools.modelbase.sql.datatypes.NumericalDataType <em>Numerical Data Type</em>}'.
@@ -3733,6 +4130,17 @@ public interface SQLDataTypesPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getCharacterSet_Encoding();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.datatools.modelbase.sql.datatypes.CharacterSet#getCharacterStringDataType <em>Character String Data Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Character String Data Type</em>'.
+	 * @see org.eclipse.datatools.modelbase.sql.datatypes.CharacterSet#getCharacterStringDataType()
+	 * @see #getCharacterSet()
+	 * @generated
+	 */
+	EReference getCharacterSet_CharacterStringDataType();
 
 	/**
 	 * Returns the meta object for the reference '{@link org.eclipse.datatools.modelbase.sql.datatypes.CharacterSet#getSchema <em>Schema</em>}'.
@@ -4235,6 +4643,27 @@ public interface SQLDataTypesPackage extends EPackage {
 	EClass getXMLDataType();
 
 	/**
+	 * Returns the meta object for class '{@link org.eclipse.datatools.modelbase.sql.datatypes.ElementType <em>Element Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Element Type</em>'.
+	 * @see org.eclipse.datatools.modelbase.sql.datatypes.ElementType
+	 * @generated
+	 */
+	EClass getElementType();
+
+	/**
+	 * Returns the meta object for the container reference '{@link org.eclipse.datatools.modelbase.sql.datatypes.ElementType#getCollectionDataType <em>Collection Data Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>Collection Data Type</em>'.
+	 * @see org.eclipse.datatools.modelbase.sql.datatypes.ElementType#getCollectionDataType()
+	 * @see #getElementType()
+	 * @generated
+	 */
+	EReference getElementType_CollectionDataType();
+
+	/**
 	 * Returns the meta object for enum '{@link org.eclipse.datatools.modelbase.sql.datatypes.CoercibilityType <em>Coercibility Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4421,12 +4850,12 @@ public interface SQLDataTypesPackage extends EPackage {
 		EClass COLLECTION_DATA_TYPE = eINSTANCE.getCollectionDataType();
 
 		/**
-		 * The meta object literal for the '<em><b>Element</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Element Type</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference COLLECTION_DATA_TYPE__ELEMENT = eINSTANCE.getCollectionDataType_Element();
+		EReference COLLECTION_DATA_TYPE__ELEMENT_TYPE = eINSTANCE.getCollectionDataType_ElementType();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.datatools.modelbase.sql.datatypes.impl.NumericalDataTypeImpl <em>Numerical Data Type</em>}' class.
@@ -4653,6 +5082,14 @@ public interface SQLDataTypesPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute CHARACTER_SET__ENCODING = eINSTANCE.getCharacterSet_Encoding();
+
+		/**
+		 * The meta object literal for the '<em><b>Character String Data Type</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CHARACTER_SET__CHARACTER_STRING_DATA_TYPE = eINSTANCE.getCharacterSet_CharacterStringDataType();
 
 		/**
 		 * The meta object literal for the '<em><b>Schema</b></em>' reference feature.
@@ -5063,6 +5500,24 @@ public interface SQLDataTypesPackage extends EPackage {
 		 * @generated
 		 */
 		EClass XML_DATA_TYPE = eINSTANCE.getXMLDataType();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.datatools.modelbase.sql.datatypes.impl.ElementTypeImpl <em>Element Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.datatools.modelbase.sql.datatypes.impl.ElementTypeImpl
+		 * @see org.eclipse.datatools.modelbase.sql.datatypes.impl.SQLDataTypesPackageImpl#getElementType()
+		 * @generated
+		 */
+		EClass ELEMENT_TYPE = eINSTANCE.getElementType();
+
+		/**
+		 * The meta object literal for the '<em><b>Collection Data Type</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ELEMENT_TYPE__COLLECTION_DATA_TYPE = eINSTANCE.getElementType_CollectionDataType();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.datatools.modelbase.sql.datatypes.CoercibilityType <em>Coercibility Type</em>}' enum.

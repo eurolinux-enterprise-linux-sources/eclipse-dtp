@@ -1,22 +1,23 @@
 /**
  *************************************************************************
- * Copyright (c) 2005, 2009 Actuate Corporation.
+ * Copyright (c) 2005, 2010 Actuate Corporation.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *  Actuate Corporation  - initial API and implementation
+ *  Actuate Corporation - initial API and implementation
  *  
  *************************************************************************
  *
- * $Id: ScalarValueDefinitionImpl.java,v 1.3 2009/04/24 03:20:26 lchan Exp $
+ * $Id: ScalarValueDefinitionImpl.java,v 1.5 2010/03/13 02:00:28 lchan Exp $
  */
 package org.eclipse.datatools.connectivity.oda.design.impl;
 
 import org.eclipse.datatools.connectivity.oda.design.DesignPackage;
 import org.eclipse.datatools.connectivity.oda.design.ScalarValueDefinition;
+import org.eclipse.datatools.connectivity.oda.design.util.DesignUtil;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -44,7 +45,7 @@ public class ScalarValueDefinitionImpl extends EObjectImpl implements
      * <!-- end-user-doc -->
      * @generated
      */
-    public static final String copyright = "Copyright (c) 2005, 2009 Actuate Corporation"; //$NON-NLS-1$
+    public static final String copyright = "Copyright (c) 2005, 2010 Actuate Corporation"; //$NON-NLS-1$
 
     /**
      * The default value of the '{@link #getValue() <em>Value</em>}' attribute.
@@ -132,22 +133,41 @@ public class ScalarValueDefinitionImpl extends EObjectImpl implements
                     m_value ) );
     }
 
+    /* (non-Javadoc)
+     * @see org.eclipse.datatools.connectivity.oda.design.ScalarValueDefinition#getDisplayName()
+     * @generated NOT
+     */
+    public String getDisplayName()
+    {
+        return DesignUtil.getDefaultResourceString( getDisplayNameGen() );
+    }
+    
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    public String getDisplayName()
+    protected String getDisplayNameGen()
     {
         return m_displayName;
     }
 
+    /* (non-Javadoc)
+     * @see org.eclipse.datatools.connectivity.oda.design.ScalarValueDefinition#setDisplayName(java.lang.String)
+     * @generated NOT
+     */
+    public void setDisplayName( String newDisplayName )
+    {
+        String newAttrValue = DesignUtil.addDefaultToResourceAttribute( newDisplayName, getDisplayNameGen() );
+        setDisplayNameGen( newAttrValue );
+    }
+    
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setDisplayName( String newDisplayName )
+    protected void setDisplayNameGen( String newDisplayName )
     {
         String oldDisplayName = m_displayName;
         m_displayName = newDisplayName;
@@ -156,11 +176,30 @@ public class ScalarValueDefinitionImpl extends EObjectImpl implements
                     DesignPackage.SCALAR_VALUE_DEFINITION__DISPLAY_NAME,
                     oldDisplayName, m_displayName ) );
     }
+    
+    /* (non-Javadoc)
+     * @see org.eclipse.datatools.connectivity.oda.design.ScalarValueDefinition#getDisplayNameKey()
+     * @generated NOT
+     */
+    public String getDisplayNameKey()
+    {
+        return DesignUtil.getResourceKey( getDisplayNameGen() );
+    }
+
+    /* (non-Javadoc)
+     * @see org.eclipse.datatools.connectivity.oda.design.ScalarValueDefinition#setDisplayNameKey(java.lang.String)
+     * @generated NOT
+     */
+    public void setDisplayNameKey( String newDisplayNameKey )
+    {
+        String newAttrValue = DesignUtil.addKeyToResourceAttribute( newDisplayNameKey, getDisplayNameGen() );
+        setDisplayNameGen( newAttrValue );
+    }
 
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     @Override
     public Object eGet( int featureID, boolean resolve, boolean coreType )
@@ -170,7 +209,7 @@ public class ScalarValueDefinitionImpl extends EObjectImpl implements
         case DesignPackage.SCALAR_VALUE_DEFINITION__VALUE:
             return getValue();
         case DesignPackage.SCALAR_VALUE_DEFINITION__DISPLAY_NAME:
-            return getDisplayName();
+            return getDisplayNameGen();
         }
         return super.eGet( featureID, resolve, coreType );
     }
@@ -178,7 +217,7 @@ public class ScalarValueDefinitionImpl extends EObjectImpl implements
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     @Override
     public void eSet( int featureID, Object newValue )
@@ -189,7 +228,7 @@ public class ScalarValueDefinitionImpl extends EObjectImpl implements
             setValue( (String) newValue );
             return;
         case DesignPackage.SCALAR_VALUE_DEFINITION__DISPLAY_NAME:
-            setDisplayName( (String) newValue );
+            setDisplayNameGen( (String) newValue );
             return;
         }
         super.eSet( featureID, newValue );
@@ -198,7 +237,7 @@ public class ScalarValueDefinitionImpl extends EObjectImpl implements
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     @Override
     public void eUnset( int featureID )
@@ -209,7 +248,7 @@ public class ScalarValueDefinitionImpl extends EObjectImpl implements
             setValue( VALUE_EDEFAULT );
             return;
         case DesignPackage.SCALAR_VALUE_DEFINITION__DISPLAY_NAME:
-            setDisplayName( DISPLAY_NAME_EDEFAULT );
+            setDisplayNameGen( DISPLAY_NAME_EDEFAULT );
             return;
         }
         super.eUnset( featureID );
